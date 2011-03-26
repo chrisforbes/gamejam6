@@ -199,6 +199,7 @@ var actorTypes = [
 	new Laser("green", "n"),
 	new Laser("blue", "n"),
 	new Laser("white", "n"),
+	new LaserRear("n"),
 	new Mirror("nw"),
 	new Mirror("ne"),
 	new Mirror("sw"),

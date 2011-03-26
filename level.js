@@ -1,22 +1,43 @@
 var tiles = {
-    "wall" : {
-        "name" : "wall",
-        "allowPlace" : false,
-        "allowBeam" : false,
-        "origin" : [3,3],
-    },
-    "floor" : {
-        "name" : "floor",
-        "allowPlace" : true,
-        "allowBeam" : true,
-        "origin" : [3,2],
-    },
-    "empty" : {
-		"name" : "empty",
-		"allowPlace" : false,
-		"allowBeam" : false,
-		"origin" : [0,9],
-	},
+    "floor" : new Tile("floor", [3,2], true, true),
+    "empty" : new Tile("empty", [0,9]),
+	"wall" : new Tile("wall", [3,3]),
+	"tile" : new Tile("tile", [4,8], true, true),
+	"wall00" : new Tile("wall00", [1,9]),
+	"wall01" : new Tile("wall01", [2,9]),
+	"wall02" : new Tile("wall02", [3,9]),
+	"wall03" : new Tile("wall03", [4,9]),
+	"wall04" : new Tile("wall04", [1,10]),
+	"wall05" : new Tile("wall05", [2,10]),
+	"wall06" : new Tile("wall06", [3,10]),
+	"wall07" : new Tile("wall07", [4,10]),
+	"wall08" : new Tile("wall08", [1,11]),
+	"wall09" : new Tile("wall09", [2,11]),
+	"wall10" : new Tile("wall10", [3,11]),
+	"wall11" : new Tile("wall11", [4,11]),
+	"wall12" : new Tile("wall12", [1,12]),
+	"wall13" : new Tile("wall13", [2,12]),
+	"wall14" : new Tile("wall14", [3,12]),
+	"wall15" : new Tile("wall15", [4,12]),
+	"caution0" : new Tile("caution0", [1,4], true, true),
+	"caution1" : new Tile("caution1", [2,4], true, true),
+	"caution2" : new Tile("caution2", [3,4], true, true),
+	"caution3" : new Tile("caution3", [1,5], true, true),
+	"caution4" : new Tile("caution4", [3,5], true, true),
+	"caution5" : new Tile("caution5", [1,6], true, true),
+	"caution6" : new Tile("caution6", [2,6], true, true),
+	"caution7" : new Tile("caution7", [3,6], true, true),
+};
+
+function Tile(name, origin, allowPlace, allowBeam) {
+    this.name = name;
+    this.allowPlace = (allowPlace == undefined) ? false : allowPlace;
+    this.allowBeam = (allowBeam == undefined) ? false : allowBeam;
+    this.origin = origin;
+    
+    this.toString = function() {
+        return "'"+this.name+"'";
+    }
 }
 
 // Cells
@@ -49,7 +70,7 @@ function Cell(tile, actor) {
     }
     
     this.toString = function() {
-        return "new Cell('"+this.tile.name+"', "+this.actor+")";
+        return "new Cell("+this.tile+", "+this.actor+")";
     }
 }
 
