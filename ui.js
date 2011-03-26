@@ -23,29 +23,43 @@ $(function() {
 function drawPanels() {
 	var ctx = $('#uiSurface')[0].getContext('2d');
 	var x = 0;
+	var y = 0;
+	var maxPanelsInRow = $('#uiSurface').width() / tileSize;
 	for (var p in tilePanels) {
 		ctx.drawImage(imageSheet, tilePanels[p].origin[0] * tileSize, 
 			tilePanels[p].origin[1] * tileSize, tileSize, 
-			tileSize, x++ * tileSize, 0, tileSize, tileSize);
+			tileSize, x++ * tileSize, y * tileSize, tileSize, tileSize);
+		if (x >= maxPanelsInRow) {
+			x = 0;
+			y++;
+		}
 	}
-	x = 0
+	x = 0;
+	y++;
 	for (var a in actorPanels) {
 		ctx.drawImage(imageSheet, actorPanels[a].origin[0] * tileSize,
 			actorPanels[a].origin[1] * tileSize, tileSize,
-			tileSize, x++ * tileSize, tileSize, tileSize, tileSize);
+			tileSize, x++ * tileSize, y * tileSize, tileSize, tileSize);
+		if (x >= maxPanelsInRow) {
+			x = 0;
+			y++;
+		}
 	}
 }
 
 function checkBounds(x, y, panelArray, yOffset, ctx) {
 	var found = false;
+	var maxPanelsInRow = $('#uiSurface').width() / tileSize;
 	for (var i = 0; i < panelArray.length; i++) {
-		if (x >= (i * tileSize) && x < ((i + 1) * tileSize) &&
-			y >= yOffset && y < (tileSize + yOffset)) {
+		var j = i % maxPanelsInRow; 
+		var z = yOffset + (Math.floor(i / maxPanelsInRow) * tileSize);
+		if (x >= (j * tileSize) && x < ((j + 1) * tileSize) &&
+			y >= z && y < (tileSize + z)) {
 			selectedPanel = panelArray[i];
 			found = true;
 			ctx.lineWidth = 3;
 			ctx.strokeStyle = "limegreen";
-			ctx.strokeRect(i * tileSize + 1, yOffset + 1,
+			ctx.strokeRect(j * tileSize + 1, z + 1,
 				tileSize - 2, tileSize - 2);
 		}
 	}
@@ -54,6 +68,7 @@ function checkBounds(x, y, panelArray, yOffset, ctx) {
 
 function uiClick(e) {
 	var ui = $('#uiSurface');
+	var maxPanelsInRow = ui.width() / tileSize;
 	var x = e.pageX - ui.offset().left;
 	var y = e.pageY - ui.offset().top;
 
@@ -62,7 +77,8 @@ function uiClick(e) {
 	drawPanels();
 	selectedPanel = null;
 	if (checkBounds(x, y, tilePanels, 0, ctx)) isTileSelected = true;
-	if (checkBounds(x, y, actorPanels, tileSize, ctx)) isTileSelected = false;
+	if (checkBounds(x, y, actorPanels, 
+		tileSize * (Math.floor(tilePanels.length / maxPanelsInRow) + 1), ctx)) isTileSelected = false;
 }
 
 function gameSurfaceMove(e) {
