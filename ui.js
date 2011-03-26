@@ -58,7 +58,7 @@ function uiClick(e) {
 	var y = e.pageY - ui.offset().top;
 
 	var ctx = ui[0].getContext('2d');
-	ctx.clearRect(0,0,256,100);
+	ctx.clearRect(0,0,ui.width(),ui.height());
 	drawPanels();
 	selectedPanel = null;
 	if (checkBounds(x, y, tilePanels, 0, ctx)) isTileSelected = true;
