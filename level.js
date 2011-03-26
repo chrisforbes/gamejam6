@@ -1,24 +1,25 @@
 var tiles = {
-    "floor" : new Tile("floor", [3,2], true, true),
-    "empty" : new Tile("empty", [0,9]),
-	"wall" : new Tile("wall", [3,3]),
-	"tile" : new Tile("tile", [4,8], true, true),
-	"wall00" : new Tile("wall00", [1,9]),
-	"wall01" : new Tile("wall01", [2,9]),
-	"wall02" : new Tile("wall02", [3,9]),
-	"wall03" : new Tile("wall03", [4,9]),
-	"wall04" : new Tile("wall04", [1,10]),
-	"wall05" : new Tile("wall05", [2,10]),
-	"wall06" : new Tile("wall06", [3,10]),
-	"wall07" : new Tile("wall07", [4,10]),
-	"wall08" : new Tile("wall08", [1,11]),
-	"wall09" : new Tile("wall09", [2,11]),
-	"wall10" : new Tile("wall10", [3,11]),
-	"wall11" : new Tile("wall11", [4,11]),
-	"wall12" : new Tile("wall12", [1,12]),
-	"wall13" : new Tile("wall13", [2,12]),
-	"wall14" : new Tile("wall14", [3,12]),
-	"wall15" : new Tile("wall15", [4,12]),
+    "floor" : new Tile("floor", [0,7], true, true),
+	"block" : new Tile("wall", [1,7]),
+	"tile" : new Tile("tile", [2,7], true, true),
+    "empty" : new Tile("empty", [3,7]),
+
+	"wall00" : new Tile("wall00", [0,8]),
+	"wall01" : new Tile("wall01", [1,8]),
+	"wall02" : new Tile("wall02", [2,8]),
+	"wall03" : new Tile("wall03", [3,8]),
+	"wall04" : new Tile("wall04", [0,9]),
+	"wall05" : new Tile("wall05", [1,9]),
+	"wall06" : new Tile("wall06", [2,9]),
+	"wall07" : new Tile("wall07", [3,9]),
+	"wall08" : new Tile("wall08", [0,10]),
+	"wall09" : new Tile("wall09", [1,10]),
+	"wall10" : new Tile("wall10", [2,10]),
+	"wall11" : new Tile("wall11", [3,10]),
+	"wall12" : new Tile("wall12", [0,11]),
+	"wall13" : new Tile("wall13", [1,11]),
+	"wall14" : new Tile("wall14", [2,11]),
+	"wall15" : new Tile("wall15", [3,11]),
 	"caution0" : new Tile("caution0", [1,4], true, true),
 	"caution1" : new Tile("caution1", [2,4], true, true),
 	"caution2" : new Tile("caution2", [3,4], true, true),
@@ -84,7 +85,7 @@ function Map(width, height, data) {
         this.cells = new Array(width*height);
         for (var y = 0; y < height; y++)
             for (var x = 0; x < width; x++)
-                this.cells[width*y+x] = new Cell((x == 0 || y == 0 || x == width - 1 || y == height - 1) ? "wall" : "floor", undefined);
+                this.cells[width*y+x] = new Cell((x == 0 || y == 0 || x == width - 1 || y == height - 1) ? "block" : "floor", undefined);
     }
         
     this.getCell = function(xy) { return this.cells[xy[1]*this.width + xy[0]]; },
