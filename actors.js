@@ -184,3 +184,13 @@ function Mirror(type) {
         return "new Mirror('"+this.type+"')";
     }
 }
+
+var actorTypes = [
+	new Target("red", "n"),
+	new Target("green", "n"),
+	new Target("blue", "n"),
+	new Laser("red", "n"),
+	new Laser("green", "n"),
+	new Laser("blue", "n"),
+	new Laser("white", "n")
+];

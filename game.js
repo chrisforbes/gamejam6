@@ -66,11 +66,12 @@ function main() {
             
     
     if (selectedPanel == null || nearestTileX == null) return;
-    ctx.shadowColor = "rgba(0,0,0,0.75)";
+    ctx.shadowColor = "rgba(0,0,0,0.5)";
     ctx.shadowOffsetX = -3;
-    ctx.shadowOffsetY = -3;
+    ctx.shadowOffsetY = 3;
+    ctx.shadowBlur = 2;
     ctx.drawImage(imageSheet, selectedPanel.origin[0] * tileSize,
         selectedPanel.origin[1] * tileSize, tileSize, tileSize,
-        nearestTileX + 3, nearestTileY + 3, tileSize, tileSize);
+        nearestTileX + 3, nearestTileY - 3, tileSize, tileSize);
     ctx.shadowColor = "rgba(0,0,0,0)";
 }
