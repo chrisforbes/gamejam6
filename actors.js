@@ -70,7 +70,7 @@ function Laser(color,dir) {
         break;
     }
 
-    this.shoot = function(x,y,ctx) {
+    this.fireLaser = function(x,y,ctx) {
         ctx.fillStyle = "rgba(128,128,255,0.75)";
         var curDir = [this.direction[0], this.direction[1]];
         var cx = x;

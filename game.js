@@ -56,7 +56,10 @@ function main() {
         }
     
     // Draw lasers
-    map.getCell([2,2]).actor.shoot(2,2,ctx);
+    for (var y = 0; y < map.height; y++)
+        for (var x = 0; x < map.width; x++) {
+            map.cells[y*map.width + x].fireLaser(x,y,ctx);
+        }
     
     // Actors
     for (var y = 0; y < map.height; y++)

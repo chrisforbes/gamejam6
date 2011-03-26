@@ -21,10 +21,17 @@ function Cell(tile, actor) {
     this.drawPreBeam = function(x,y,ctx) {
         ctx.drawImage(imageSheet, 32*this.tile.origin[0], 32*this.tile.origin[1], 32, 32, x*32, y*32, 32, 32);
     }
+    
+    this.fireLaser = function(x,y,ctx) {
+        if (actor && actor.fireLaser)
+            actor.fireLaser(x,y,ctx);
+    }
+    
     this.drawPostBeam = function(x,y,ctx) {
         if (actor)
             ctx.drawImage(imageSheet, 32*this.actor.origin[0], 32*this.actor.origin[1], 32, 32, x*32, y*32, 32, 32);
     }
+    
     this.beamHit = function(color, dir) {
         if (!this.tile.allowBeam)
             return undefined;
@@ -39,21 +46,6 @@ function Cell(tile, actor) {
         return "new Cell('"+this.tile.name+"', "+this.actor+")";
     }
 }
-
-// Level definition
-var floorCell = new Cell(tiles.floor, undefined);
-var wallCell = new Cell(tiles.wall, undefined);
-var emitterCell = new Cell(tiles.floor, new Laser("green", "e"));
-var laserRear = new Cell(tiles.floor, new LaserRear("e"));
-var targetCell = new Cell(tiles.floor, new Target("green", "s"));
-var mirrorNWCell = new Cell(tiles.floor, new Mirror("nw"));
-var mirrorNECell = new Cell(tiles.floor, new Mirror("ne"));
-var mirrorSECell = new Cell(tiles.floor, new Mirror("se"));
-var mirrorSWCell = new Cell(tiles.floor, new Mirror("sw"));
-var mirrorDoubleNWCell = new Cell(tiles.floor, new Mirror("double-nw"));
-var mirrorDoubleNECell = new Cell(tiles.floor, new Mirror("double-ne"));
-var filter = new Cell(tiles.floor, new Filter("green","e"));
-
 
 function Map(width, height, data) {
     this.width = width;
