@@ -73,7 +73,7 @@ function Laser(color,dir) {
             newDir = map.getCell([cx,cy]).beamHit(this.color, curDir);
             if (newDir == undefined)
             {
-                ctx.fillRect(cx*32+11, cy*32+11, 10,10)
+                ctx.fillRect((cx - curDir[0])*32+11, (cy - curDir[1])*32+11, 10,10)
                 break;
             }
             drawBeam(this.color, [cx,cy], curDir, newDir, ctx);
@@ -81,6 +81,52 @@ function Laser(color,dir) {
             cx += curDir[0];
             cy += curDir[1];
         }
+    }
+}
+
+
+function LaserRear(dir) {
+    switch (dir) {
+        case "n":
+            this.origin = [7,0];
+        break;
+        case "e":
+            this.origin = [4,0];
+        break;
+        case "s":
+            this.origin = [5,0];
+        break;
+        case "w":
+            this.origin = [6,0];
+        break;
+    }
+    
+    this.beamHit = function(color, dir) { return undefined; }
+}
+
+function Filter(color,dir) {
+    this.color = color;
+    var c = 2;
+    switch(color) {
+        case "red": c = 2; break;
+        case "green": c = 1; break;
+        case "blue": c = 0; break;
+    }
+    switch (dir) {
+        case "n":
+        case "s":
+            this.origin = [c,2];
+        break;
+        case "e":
+        case "w":
+            this.origin = [c,3];
+        break;
+    }
+
+    this.beamHit = function(color, dir) {
+        if (color == this.color)
+            return dir;     
+        return undefined;
     }
 }
 

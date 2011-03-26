@@ -40,13 +40,9 @@ function drawBeam(color, xy, d0, d1, ctx) {
     ctx.drawImage(imageSheet, 32*origin[0], 32*origin[1]+o, 32, 32, xy[0]*32, xy[1]*32, 32, 32);
 }
 
-
-
-
 $(function() {
 	setInterval( "main()", 50 );
 });
-
 
 function main()
 {
@@ -56,13 +52,19 @@ function main()
     // Draw the map
     for (var y = 0; y < map.height; y++)
         for (var x = 0; x < map.width; x++) {
-            map.cells[y*map.width + x].draw(x,y,ctx);
+            map.cells[y*map.width + x].drawPreBeam(x,y,ctx);
         }
-            
     
     // Draw lasers
     map.getCell([2,2]).actor.shoot(2,2,ctx);
-
+    
+    // Actors
+    for (var y = 0; y < map.height; y++)
+        for (var x = 0; x < map.width; x++) {
+            map.cells[y*map.width + x].drawPostBeam(x,y,ctx);
+        }
+            
+    
     if (selectedPanel == null || nearestTileX == null) return;
     ctx.shadowColor = "rgba(0,0,0,0.75)";
     ctx.shadowOffsetX = -3;
