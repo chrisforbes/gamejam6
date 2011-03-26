@@ -9,12 +9,13 @@ $(function() {
 		uiPanels[uiPanels.length] = objects[o];
 	}
 
-	drawPanels(ctx);
+	setTimeout('drawPanels()', 50); //Fuck chrome with a rusty iron pole.
 	
 	$('#uiSurface').mousedown(uiClick);
 });
 
-function drawPanels(ctx) {
+function drawPanels() {
+	var ctx = $('#uiSurface')[0].getContext('2d');
 	var x = 0;
 	for (p in uiPanels) {
 		ctx.drawImage(imageSheet, uiPanels[p].origin[0] * 32, 
@@ -29,7 +30,7 @@ function uiClick(e) {
 
 	var ctx = ui[0].getContext('2d');
 	ctx.clearRect(0,0,256,100);
-	drawPanels(ctx);
+	drawPanels();
 	for (var i = 0; i < uiPanels.length; i++) {
 		if (x >= (i * 32) && x < ((i + 1) * 32) && y >= 0 && y < 32) {
 			ctx.lineWidth = 3;
