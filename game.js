@@ -1,6 +1,9 @@
 // Tile definitions
 var imageSheet = new Image();
 imageSheet.src = 'sprites.png';
+var selectedPanel = null;
+var nearestTileX = null;
+var nearestTileY = null;
 
 var tiles = {
     "wall" : {
@@ -224,4 +227,13 @@ function main()
     
     // Draw lasers
     map.getCell([2,2]).object.shoot(2,2,ctx);
+
+    if (selectedPanel == null || nearestTileX == null) return;
+    ctx.shadowColor = "rgba(0,0,0,0.75)";
+    ctx.shadowOffsetX = -3;
+    ctx.shadowOffsetY = -3;
+    ctx.drawImage(imageSheet, selectedPanel.origin[0] * tileSize,
+        selectedPanel.origin[1] * tileSize, tileSize, tileSize,
+        nearestTileX + 3, nearestTileY + 3, tileSize, tileSize);
+    ctx.shadowColor = "rgba(0,0,0,0)";
 }
