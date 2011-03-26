@@ -20,6 +20,7 @@ $(function() {
 	$('#gameSurface').mousemove(gameSurfaceMove);
 	$('#gameSurface').mouseout(function() { nearestTileX = null; });
 	$('#gameSurface').click(gameSurfaceClick);
+	$('#gameSurface').mousedown(gameSurfaceMouseDown);
 });
 
 function drawPanels() {
@@ -101,4 +102,13 @@ function gameSurfaceClick(e) {
 		map.getCell([xIndex,yIndex]).tile = selectedPanel;
 	else
 		map.getCell([xIndex,yIndex]).actor = selectedPanel;
+}
+
+function gameSurfaceMouseDown(e) {
+	if (selectedPanel != null || nearestTileX == null || e.button != 2) return;
+	var xIndex = nearestTileX / tileSize;
+	var yIndex = nearestTileY / tileSize;
+
+	var selectedActor = map.getCell([xIndex, yIndex]).actor;
+//	selectedActor.
 }
