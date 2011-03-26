@@ -2,11 +2,11 @@ var uiPanels = new Array();
 var tileSize = 32;
 $(function() { 
 	var ctx = $('#uiSurface')[0].getContext('2d');
-	for (tile in tiles) {
+	for (var tile in tiles) {
 		uiPanels[uiPanels.length] = tiles[tile];
 	}
 
-	for (o in objects) {
+	for (var o in objects) {
 		uiPanels[uiPanels.length] = objects[o];
 	}
 
@@ -19,7 +19,7 @@ $(function() {
 function drawPanels() {
 	var ctx = $('#uiSurface')[0].getContext('2d');
 	var x = 0;
-	for (p in uiPanels) {
+	for (var p in uiPanels) {
 		ctx.drawImage(imageSheet, uiPanels[p].origin[0] * tileSize, 
 			uiPanels[p].origin[1] * tileSize, tileSize, 
 			tileSize, x++ * tileSize, 0, tileSize, tileSize);
