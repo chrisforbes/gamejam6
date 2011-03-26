@@ -73,8 +73,16 @@ $(function() {
 });
 
 function main() {
-    var canvas = $('canvas')[0];
+    var canvas = $('#gameSurface')[0];
     var ctx = canvas.getContext('2d');
+    if (canvas.width != map.width * 32) {
+        canvas.width = map.width * 32;
+	$('#gameWrapper').width(map.width * 32);
+    }
+    if (canvas.height != map.height * 32) {
+    	canvas.height = map.height * 32;
+	$('#gameWrapper').height(map.height * 32);
+    }
     ++tick;
     ctx.clearRect(0,0, canvas.width, canvas.height);
     // Draw the map
