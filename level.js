@@ -17,18 +17,18 @@ function Cell(tile, actor) {
     this.actor = actor;
     
     this.drawPreBeam = function(x,y,ctx) {
-        ctx.drawImage(imageSheet, 32*tile.origin[0], 32*tile.origin[1], 32, 32, x*32, y*32, 32, 32);
+        ctx.drawImage(imageSheet, 32*this.tile.origin[0], 32*this.tile.origin[1], 32, 32, x*32, y*32, 32, 32);
     }
     this.drawPostBeam = function(x,y,ctx) {
         if (actor)
-            ctx.drawImage(imageSheet, 32*actor.origin[0], 32*actor.origin[1], 32, 32, x*32, y*32, 32, 32);
+            ctx.drawImage(imageSheet, 32*this.actor.origin[0], 32*this.actor.origin[1], 32, 32, x*32, y*32, 32, 32);
     }
     this.beamHit = function(color, dir) {
-        if (!tile.allowBeam)
+        if (!this.tile.allowBeam)
             return undefined;
         
-        if (actor && actor.beamHit)
-            return actor.beamHit(color, dir);
+        if (this.actor && this.actor.beamHit)
+            return this.actor.beamHit(color, dir);
             
         return dir;
     }

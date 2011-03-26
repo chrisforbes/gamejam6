@@ -44,8 +44,7 @@ $(function() {
 	setInterval( "main()", 50 );
 });
 
-function main()
-{
+function main() {
     var ctx = $('canvas')[0].getContext('2d');
     ctx.clearRect(0,0, 256, 256);
 
