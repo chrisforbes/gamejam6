@@ -46,6 +46,8 @@ var mirrorNWCell = new Cell(tiles.floor, new Mirror("nw"));
 var mirrorNECell = new Cell(tiles.floor, new Mirror("ne"));
 var mirrorSECell = new Cell(tiles.floor, new Mirror("se"));
 var mirrorSWCell = new Cell(tiles.floor, new Mirror("sw"));
+var mirrorDoubleNWCell = new Cell(tiles.floor, new Mirror("double-nw"));
+var mirrorDoubleNECell = new Cell(tiles.floor, new Mirror("double-ne"));
 var filter = new Cell(tiles.floor, new Filter("green","e"));
 
 var map = {
@@ -53,7 +55,7 @@ var map = {
     "height" : 4,
     "cells" : [wallCell,wallCell,wallCell,wallCell,wallCell,wallCell,
                wallCell,targetCell,filter,mirrorSWCell,mirrorSWCell,wallCell,
-               wallCell,laserRear,emitterCell,mirrorNWCell,mirrorNECell,wallCell,
+               wallCell,laserRear,emitterCell,mirrorDoubleNWCell,mirrorDoubleNECell,wallCell,
                wallCell,wallCell,wallCell,wallCell,wallCell,wallCell],
     "getCell" : function(xy) { return this.cells[xy[1]*map.width + xy[0]]; }
 }

@@ -143,7 +143,13 @@ function Mirror(type) {
     } else if (type == "se") {
         this.origin = [3,1];
         this.dirs = [[[0,-1],[1,0]],[[-1,0],[0,1]]];
-    }
+    } else if (type == "double-nw") {
+		this.origin = [0,4];
+		this.dirs = [[[1,0],[0,-1]],[[0,1],[-1,0]],[[0,-1],[1,0]],[[-1,0],[0,1]]];
+    } else if (type == "double-ne") {
+		this.origin = [0,5];
+		this.dirs = [[[0,1],[1,0]],[[-1,0],[0,-1]],[[0,-1],[-1,0]],[[1,0],[0,1]]];
+	}
     
     this.beamHit = function(color, dir) {
         for (var d in this.dirs) {
