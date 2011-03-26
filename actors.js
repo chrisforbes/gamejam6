@@ -245,13 +245,13 @@ function Mirror(type) {
     this.rotate = function() {
         switch (this.type) {
 	    case "nw":
-	        return new Mirror("sw");
-	    case "sw":
 	        return new Mirror("ne");
+	    case "sw":
+	        return new Mirror("nw");
 	    case "ne":
 	        return new Mirror("se");
 	    case "se":
-	        return new Mirror("nw");
+	        return new Mirror("sw");
 	    case "double-nw":
 	        return new Mirror("double-ne");
 	    case "double-ne":
