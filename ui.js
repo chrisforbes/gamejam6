@@ -6,10 +6,6 @@ $(function() {
 		uiPanels[uiPanels.length] = tiles[tile];
 	}
 
-	for (var o in objects) {
-		uiPanels[uiPanels.length] = objects[o];
-	}
-
 	setTimeout('drawPanels()', 50); //Fuck chrome with a rusty iron pole.
 	
 	$('#uiSurface').mousedown(uiClick);
