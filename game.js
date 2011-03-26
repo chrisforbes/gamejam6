@@ -31,6 +31,12 @@ function isEqualDir(d1, d2) {
     return d1[0] == d2[0] && d1[1] == d2[1];
 }
 
+
+function isOppositeDir(d1, d2) {
+    return d1[0] + d2[0] == 0 && d1[1] + d2[1] == 0;
+}
+
+
 function drawBeam(color, xy, d0, d1, ctx) {
     var origin = undefined;
     for (var i in beamArt)

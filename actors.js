@@ -91,7 +91,8 @@ function Laser(color,dir) {
             cy += curDir[1];
         }
     }
-    
+    this.beamHit = function(color, dir) { return isEqualDir(dir, this.direction) ? dir : undefined; }
+
     this.toString = function() {
         return "new Laser('"+this.color+"', '"+this.dirString+"')";
     }
@@ -134,15 +135,17 @@ function Filter(color,dir) {
         case "n":
         case "s":
             this.origin = [c,2];
+            this.direction = [0,1];
         break;
         case "e":
         case "w":
             this.origin = [c,3];
+            this.direction = [1,0];
         break;
     }
 
     this.beamHit = function(color, dir) {
-        if (color == this.color)
+        if (color == this.color && (isEqualDir(dir, this.direction) || isOppositeDir(dir, this.direction)))
             return dir;     
         return undefined;
     }

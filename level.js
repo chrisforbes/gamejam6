@@ -23,12 +23,12 @@ function Cell(tile, actor) {
     }
     
     this.fireLaser = function(x,y,ctx) {
-        if (actor && actor.fireLaser)
-            actor.fireLaser(x,y,ctx);
+        if (this.actor && this.actor.fireLaser)
+            this.actor.fireLaser(x,y,ctx);
     }
     
     this.drawPostBeam = function(x,y,ctx) {
-        if (actor)
+        if (this.actor)
             ctx.drawImage(imageSheet, 32*this.actor.origin[0], 32*this.actor.origin[1], 32, 32, x*32, y*32, 32, 32);
     }
     
