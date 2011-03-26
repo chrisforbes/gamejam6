@@ -26,6 +26,25 @@ var objects = {
     }
 }
 
+function Laser(origin,direction) {
+    this.origin = origin;
+    this.direction = direction;
+    
+    this.emit = function(ctx) {
+        var curDir = direction;
+        var curPos = origin;
+        while (true) {
+            curDir = map.getCell(curPos).beamEntered(curDir);
+            if (!curDir)
+                break;
+            ctx.fillRect(curPos[0]*32+6, curPos[1]*32+6, 20,20)
+            curPos[0] += curDir[0];
+            curPos[1] += curDir[1];
+        }
+    }
+}
+
+
 // Cells
 function Cell(tile, object) {
     this.tile = tile;
@@ -36,6 +55,13 @@ function Cell(tile, object) {
         
         if (object)
             ctx.drawImage(imageSheet, 32*object.origin[0], 32*object.origin[1], 32, 32, x*32, y*32, 32, 32);
+    }
+    
+    this.beamEntered = function(dir) {
+        if (!tile.allowBeam)
+            return undefined;
+        
+        return dir;
     }
 }
 
@@ -52,6 +78,7 @@ var map = {
                wallCell,targetCell,floorCell,floorCell,floorCell,wallCell,
                wallCell,emitterCell,floorCell,floorCell,floorCell,wallCell,
                wallCell,wallCell,wallCell,wallCell,wallCell,wallCell],
+    "getCell" : function(xy) { return this.cells[xy[1]*map.width + xy[0]]; }
 }
 
 
@@ -74,4 +101,5 @@ function main()
             map.cells[y*map.width + x].draw(x,y,ctx);
         
     // Draw lasers
+    new Laser([1,2],[1,0]).emit(ctx);
 }
