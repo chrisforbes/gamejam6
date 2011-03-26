@@ -18,9 +18,7 @@ var tiles = {
 
 // Objects
 var objects = {
-    "emitter" : {
-        "origin" : [4,4],
-    },
+    "emitter" : new Laser([4,4], [1,0]),
     "target" : {
         "origin" : [4,6],
     }
@@ -30,20 +28,20 @@ function Laser(origin,direction) {
     this.origin = origin;
     this.direction = direction;
     
-    this.emit = function(ctx) {
-        var curDir = direction;
-        var curPos = origin;
+    this.shoot = function(x,y,ctx) {
+        var curDir = [this.direction[0], this.direction[1]];
+        var cx = x;
+        var cy = y;
         while (true) {
-            curDir = map.getCell(curPos).beamEntered(curDir);
-            if (!curDir)
+            curDir = map.getCell([cx,cy]).beamEntered(curDir);
+            if (curDir == undefined)
                 break;
-            ctx.fillRect(curPos[0]*32+6, curPos[1]*32+6, 20,20)
-            curPos[0] += curDir[0];
-            curPos[1] += curDir[1];
+            ctx.fillRect(cx*32+6, cy*32+6, 20,20)
+            cx += curDir[0];
+            cy += curDir[1];
         }
     }
 }
-
 
 // Cells
 function Cell(tile, object) {
@@ -81,10 +79,6 @@ var map = {
     "getCell" : function(xy) { return this.cells[xy[1]*map.width + xy[0]]; }
 }
 
-
-
-
-
 $(function() {
 	setInterval( "main()", 50 );
 });
@@ -97,9 +91,11 @@ function main()
 
     // Draw the map
     for (var y = 0; y < map.height; y++)
-        for (var x = 0; x < map.width; x++)
+        for (var x = 0; x < map.width; x++) {
             map.cells[y*map.width + x].draw(x,y,ctx);
-        
+        }
+            
+    
     // Draw lasers
-    new Laser([1,2],[1,0]).emit(ctx);
+    map.getCell([1,2]).object.shoot(1,2,ctx);
 }
