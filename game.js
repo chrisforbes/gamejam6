@@ -5,20 +5,6 @@ var selectedPanel = null;
 var nearestTileX = null;
 var nearestTileY = null;
 
-var tiles = {
-    "wall" : {
-        "allowPlace" : false,
-        "allowBeam" : false,
-        "origin" : [3,3],
-    },
-
-    "floor" : {
-        "allowPlace" : true,
-        "allowBeam" : true,
-        "origin" : [3,2],
-    }
-}
-
 var beamArt = [
     [[1,0], [1,0],   [8,0]],
     [[1,0], [0,1],   [9,1]],
@@ -34,141 +20,9 @@ var beamArt = [
     [[0,-1],[1,0],  [10,1]]
 ];
 
-// Objects
-function Target(color, dir) {    
-    this.color = color;
-    var c = 7;
-    switch(color) {
-        case "red": c = 7; break;
-        case "green": c = 5; break;
-        case "blue": c = 6; break;
-    }
-    switch (dir) {
-        case "n":
-            this.origin = [7,c];
-            this.direction = [0,1];
-        break;
-        case "e":
-            this.origin = [4,c];
-            this.direction = [-1,0];
-        break;
-        case "s":
-            this.origin = [5,c];
-            this.direction = [0,-1];
-        break;
-        case "w":
-            this.origin = [6,c];
-            this.direction = [1,0];
-        break;
-    }
-    
-    this.beamHit = function(color, dir) {
-        if (color == this.color && isEqualDir(dir, this.direction))
-            alert("winnar")
-            
-        return undefined;
-    }
-}
-
-function Laser(color,dir) {
-    this.color = color;
-    var c = 4;
-    switch(color) {
-        case "red": c = 4; break;
-        case "green": c = 2; break;
-        case "blue": c = 3; break;
-        case "white": c = 1; break;
-    }
-    switch (dir) {
-        case "n":
-            this.origin = [7,c];
-            this.direction = [0,-1];
-        break;
-        case "e":
-            this.origin = [4,c];
-            this.direction = [1,0];
-        break;
-        case "s":
-            this.origin = [5,c];
-            this.direction = [0,1];
-        break;
-        case "w":
-            this.origin = [6,c];
-            this.direction = [-1,0];
-        break;
-    }
-
-    this.shoot = function(x,y,ctx) {
-        ctx.fillStyle = "rgba(128,128,255,0.75)";
-        var curDir = [this.direction[0], this.direction[1]];
-        var cx = x;
-        var cy = y;
-        while (true) {
-            newDir = map.getCell([cx,cy]).beamHit(this.color, curDir);
-            if (newDir == undefined)
-            {
-                ctx.fillRect(cx*32+11, cy*32+11, 10,10)
-                break;
-            }
-            drawBeam(this.color, [cx,cy], curDir, newDir, ctx);
-            curDir = newDir;
-            cx += curDir[0];
-            cy += curDir[1];
-        }
-    }
-}
-
 
 function isEqualDir(d1, d2) {
     return d1[0] == d2[0] && d1[1] == d2[1];
-}
-
-function Mirror(type) {
-    if (type == "nw") {
-        this.origin = [2,0];
-        this.dirs = [[[1,0],[0,-1]],[[0,1],[-1,0]]];
-    } else if (type == "sw") {
-        this.origin = [2,1];
-        this.dirs = [[[0,-1],[-1,0]],[[1,0],[0,1]]];
-    } else if (type == "ne") {
-        this.origin = [3,0];
-        this.dirs = [[[0,1],[1,0]],[[-1,0],[0,-1]]];
-    } else if (type == "se") {
-        this.origin = [3,1];
-        this.dirs = [[[0,-1],[1,0]],[[-1,0],[0,1]]];
-    }
-    
-    this.beamHit = function(color, dir) {
-        for (var d in this.dirs) {
-            if (isEqualDir(dir, this.dirs[d][0]))
-                return this.dirs[d][1];
-        }
-            
-        return undefined;
-    }
-}
-
-// Cells
-function Cell(tile, object) {
-    this.tile = tile;
-    this.object = object;
-    
-    this.draw = function(x,y,ctx) {
-        ctx.drawImage(imageSheet, 32*tile.origin[0], 32*tile.origin[1], 32, 32, x*32, y*32, 32, 32);
-        
-        if (object)
-            ctx.drawImage(imageSheet, 32*object.origin[0], 32*object.origin[1], 32, 32, x*32, y*32, 32, 32);
-    }
-    
-    this.beamHit = function(color, dir) {
-        if (!tile.allowBeam)
-            return undefined;
-        
-        if (object && object.beamHit)
-            return object.beamHit(color, dir);
-            
-        return dir;
-    }
 }
 
 function drawBeam(color, xy, d0, d1, ctx) {
@@ -188,25 +42,6 @@ function drawBeam(color, xy, d0, d1, ctx) {
 
 
 
-// Level definition
-var floorCell = new Cell(tiles.floor, undefined);
-var wallCell = new Cell(tiles.wall, undefined);
-var emitterCell = new Cell(tiles.floor, new Laser("green", "e"));
-var targetCell = new Cell(tiles.floor, new Target("green", "s"));
-var mirrorNWCell = new Cell(tiles.floor, new Mirror("nw"));
-var mirrorNECell = new Cell(tiles.floor, new Mirror("ne"));
-var mirrorSECell = new Cell(tiles.floor, new Mirror("se"));
-var mirrorSWCell = new Cell(tiles.floor, new Mirror("sw"));
-
-var map = {
-    "width" : 6,
-    "height" : 4,
-    "cells" : [wallCell,wallCell,wallCell,wallCell,wallCell,wallCell,
-               wallCell,targetCell,floorCell,mirrorSWCell,mirrorSWCell,wallCell,
-               wallCell,floorCell,emitterCell,mirrorNWCell,mirrorNECell,wallCell,
-               wallCell,wallCell,wallCell,wallCell,wallCell,wallCell],
-    "getCell" : function(xy) { return this.cells[xy[1]*map.width + xy[0]]; }
-}
 
 $(function() {
 	setInterval( "main()", 50 );
@@ -226,7 +61,7 @@ function main()
             
     
     // Draw lasers
-    map.getCell([2,2]).object.shoot(2,2,ctx);
+    map.getCell([2,2]).actor.shoot(2,2,ctx);
 
     if (selectedPanel == null || nearestTileX == null) return;
     ctx.shadowColor = "rgba(0,0,0,0.75)";
