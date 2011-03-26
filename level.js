@@ -10,7 +10,13 @@ var tiles = {
         "allowPlace" : true,
         "allowBeam" : true,
         "origin" : [3,2],
-    }
+    },
+    "empty" : {
+		"name" : "empty",
+		"allowPlace" : false,
+		"allowBeam" : false,
+		"origin" : [0,9],
+	},
 }
 
 // Cells

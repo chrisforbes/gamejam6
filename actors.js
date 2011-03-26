@@ -205,4 +205,7 @@ var actorTypes = [
 	new Mirror("se"),
 	new Mirror("double-nw"),
 	new Mirror("double-ne"),
+	new Filter("red", "n"),
+	new Filter("green", "n"),
+	new Filter("blue", "n")
 ];
