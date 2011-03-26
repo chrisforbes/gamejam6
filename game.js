@@ -32,8 +32,39 @@ var beamArt = [
 ];
 
 // Objects
-function Target(origin) {
-    this.origin = origin;
+function Target(color, dir) {    
+    this.color = color;
+    var c = 7;
+    switch(color) {
+        case "red": c = 7; break;
+        case "green": c = 5; break;
+        case "blue": c = 6; break;
+    }
+    switch (dir) {
+        case "n":
+            this.origin = [7,c];
+            this.direction = [0,1];
+        break;
+        case "e":
+            this.origin = [4,c];
+            this.direction = [-1,0];
+        break;
+        case "s":
+            this.origin = [5,c];
+            this.direction = [0,-1];
+        break;
+        case "w":
+            this.origin = [6,c];
+            this.direction = [1,0];
+        break;
+    }
+    
+    this.beamHit = function(color, dir) {
+        if (color == this.color && isEqualDir(dir, this.direction))
+            alert("winnar")
+            
+        return undefined;
+    }
 }
 
 function Laser(color,dir) {
@@ -70,7 +101,7 @@ function Laser(color,dir) {
         var cx = x;
         var cy = y;
         while (true) {
-            newDir = map.getCell([cx,cy]).beamExitDirection(curDir);
+            newDir = map.getCell([cx,cy]).beamHit(this.color, curDir);
             if (newDir == undefined)
             {
                 ctx.fillRect(cx*32+11, cy*32+11, 10,10)
@@ -104,7 +135,7 @@ function Mirror(type) {
         this.dirs = [[[0,-1],[1,0]],[[-1,0],[0,1]]];
     }
     
-    this.beamExitDirection = function(dir) {
+    this.beamHit = function(color, dir) {
         for (var d in this.dirs) {
             if (isEqualDir(dir, this.dirs[d][0]))
                 return this.dirs[d][1];
@@ -126,12 +157,12 @@ function Cell(tile, object) {
             ctx.drawImage(imageSheet, 32*object.origin[0], 32*object.origin[1], 32, 32, x*32, y*32, 32, 32);
     }
     
-    this.beamExitDirection = function(dir) {
+    this.beamHit = function(color, dir) {
         if (!tile.allowBeam)
             return undefined;
         
-        if (object && object.beamExitDirection)
-            return object.beamExitDirection(dir);
+        if (object && object.beamHit)
+            return object.beamHit(color, dir);
             
         return dir;
     }
@@ -158,7 +189,7 @@ function drawBeam(color, xy, d0, d1, ctx) {
 var floorCell = new Cell(tiles.floor, undefined);
 var wallCell = new Cell(tiles.wall, undefined);
 var emitterCell = new Cell(tiles.floor, new Laser("green", "e"));
-var targetCell = new Cell(tiles.floor, new Target([4,6]));
+var targetCell = new Cell(tiles.floor, new Target("green", "s"));
 var mirrorNWCell = new Cell(tiles.floor, new Mirror("nw"));
 var mirrorNECell = new Cell(tiles.floor, new Mirror("ne"));
 var mirrorSECell = new Cell(tiles.floor, new Mirror("se"));
@@ -168,7 +199,7 @@ var map = {
     "width" : 6,
     "height" : 4,
     "cells" : [wallCell,wallCell,wallCell,wallCell,wallCell,wallCell,
-               wallCell,targetCell,floorCell,mirrorSECell,mirrorSWCell,wallCell,
+               wallCell,targetCell,floorCell,mirrorSWCell,mirrorSWCell,wallCell,
                wallCell,floorCell,emitterCell,mirrorNWCell,mirrorNECell,wallCell,
                wallCell,wallCell,wallCell,wallCell,wallCell,wallCell],
     "getCell" : function(xy) { return this.cells[xy[1]*map.width + xy[0]]; }
