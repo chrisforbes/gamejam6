@@ -1,10 +1,12 @@
 var tiles = {
     "wall" : {
+        "name" : "wall",
         "allowPlace" : false,
         "allowBeam" : false,
         "origin" : [3,3],
     },
     "floor" : {
+        "name" : "floor",
         "allowPlace" : true,
         "allowBeam" : true,
         "origin" : [3,2],
@@ -13,7 +15,7 @@ var tiles = {
 
 // Cells
 function Cell(tile, actor) {
-    this.tile = tile;
+    this.tile = tiles[tile];
     this.actor = actor;
     
     this.drawPreBeam = function(x,y,ctx) {
@@ -32,9 +34,11 @@ function Cell(tile, actor) {
             
         return dir;
     }
+    
+    this.toString = function() {
+        return "new Cell('"+this.tile.name+"', "+this.actor+")";
+    }
 }
-
-
 
 // Level definition
 var floorCell = new Cell(tiles.floor, undefined);
@@ -50,12 +54,19 @@ var mirrorDoubleNWCell = new Cell(tiles.floor, new Mirror("double-nw"));
 var mirrorDoubleNECell = new Cell(tiles.floor, new Mirror("double-ne"));
 var filter = new Cell(tiles.floor, new Filter("green","e"));
 
-var map = {
-    "width" : 6,
-    "height" : 4,
-    "cells" : [wallCell,wallCell,wallCell,wallCell,wallCell,wallCell,
-               wallCell,targetCell,filter,mirrorSWCell,mirrorSWCell,wallCell,
-               wallCell,laserRear,emitterCell,mirrorDoubleNWCell,mirrorDoubleNECell,wallCell,
-               wallCell,wallCell,wallCell,wallCell,wallCell,wallCell],
-    "getCell" : function(xy) { return this.cells[xy[1]*map.width + xy[0]]; }
+
+function Map(width, height, data) {
+    this.width = width;
+    this.height = height;
+    this.cells = eval(data);
+    this.getCell = function(xy) { return this.cells[xy[1]*map.width + xy[0]]; },
+
+    this.save = function() {
+        alert(this);
+    }
+    this.toString = function() {
+        return "new Map("+this.width+","+this.height+",\"["+this.cells.toString()+"]\")";
+    }
 }
+
+var map = new Map(6,4,"[new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('floor', new Target('green', 's')),new Cell('floor', new Filter('green', 'e')),new Cell('floor', new Mirror('sw')),new Cell('floor', new Mirror('sw')),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('floor', new LaserRear('e')),new Cell('floor', new Laser('green', 'e')),new Cell('floor', new Mirror('double-nw')),new Cell('floor', new Mirror('double-ne')),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined)]");

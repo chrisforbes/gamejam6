@@ -3,6 +3,7 @@
 // Actors
 function Target(color, dir) {    
     this.color = color;
+    this.dirString = dir;
     var c = 7;
     switch(color) {
         case "red": c = 7; break;
@@ -34,10 +35,15 @@ function Target(color, dir) {
             
         return undefined;
     }
+    
+    this.toString = function() {
+        return "new Target('"+this.color+"', '"+this.dirString+"')";
+    }
 }
 
 function Laser(color,dir) {
     this.color = color;
+    this.dirString = dir;
     var c = 4;
     switch(color) {
         case "red": c = 4; break;
@@ -82,10 +88,15 @@ function Laser(color,dir) {
             cy += curDir[1];
         }
     }
+    
+    this.toString = function() {
+        return "new Laser('"+this.color+"', '"+this.dirString+"')";
+    }
 }
 
 
 function LaserRear(dir) {
+    this.dirString = dir;
     switch (dir) {
         case "n":
             this.origin = [7,0];
@@ -102,10 +113,14 @@ function LaserRear(dir) {
     }
     
     this.beamHit = function(color, dir) { return undefined; }
+    this.toString = function() {
+        return "new LaserRear('"+this.dirString+"')";
+    }
 }
 
 function Filter(color,dir) {
     this.color = color;
+    this.dirString = dir;
     var c = 2;
     switch(color) {
         case "red": c = 2; break;
@@ -128,9 +143,14 @@ function Filter(color,dir) {
             return dir;     
         return undefined;
     }
+    
+    this.toString = function() {
+        return "new Filter('"+this.color+"', '"+this.dirString+"')";
+    }
 }
 
 function Mirror(type) {
+    this.type = type;
     if (type == "nw") {
         this.origin = [2,0];
         this.dirs = [[[1,0],[0,-1]],[[0,1],[-1,0]]];
@@ -158,5 +178,9 @@ function Mirror(type) {
         }
             
         return undefined;
+    }
+    
+    this.toString = function() {
+        return "new Mirror('"+this.type+"')";
     }
 }
