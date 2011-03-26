@@ -1,25 +1,28 @@
 // Tile definitions
+var imageSheet = new Image();
+imageSheet.src = 'sprites.png';
+
 var tiles = {
     "wall" : {
         "allowPlace" : false,
         "allowBeam" : false,
-        "color" : "black"
+        "origin" : [3,3],
     },
 
     "floor" : {
         "allowPlace" : true,
         "allowBeam" : true,
-        "color" : "gray"
+        "origin" : [3,2],
     }
 }
 
 // Objects
 var objects = {
     "emitter" : {
-        "color" : "red"
+        "origin" : [4,4],
     },
     "target" : {
-        "color" : "green"
+        "origin" : [4,6],
     }
 }
 
@@ -29,14 +32,10 @@ function Cell(tile, object) {
     this.object = object;
     
     this.draw = function(x,y,ctx) {
-        ctx.fillStyle = tile.color;
-        ctx.fillRect(x*32, y*32, 32, 32);
+        ctx.drawImage(imageSheet, 32*tile.origin[0], 32*tile.origin[1], 32, 32, x*32, y*32, 32, 32);
         
         if (object)
-        {
-            ctx.fillStyle = object.color;
-            ctx.fillRect(x*32+4, y*32+4, 24, 24);
-        }
+            ctx.drawImage(imageSheet, 32*object.origin[0], 32*object.origin[1], 32, 32, x*32, y*32, 32, 32);
     }
 }
 
