@@ -10,10 +10,15 @@ $(function() {
     	for (var tile in tiles) {
     		tilePanels[tilePanels.length] = tiles[tile];
     	}
-    }
-    for (var i in actorTypes) {
-		actorPanels[actorPanels.length] = actorTypes[i];
+    	for (var i in actorTypes) {
+            actorPanels[actorPanels.length] = actorTypes[i];
+        }    
+	} else {
+	    for (var i in map.parts) {
+	        actorPanels[actorPanels.length] = actorTypes[map.parts[i][0]];
+	    }
 	}
+
 	setTimeout('drawPanels()', 50); //Fuck chrome with a rusty iron pole.
 	
 	$('#uiSurface').mousedown(uiClick);

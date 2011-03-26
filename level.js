@@ -75,9 +75,13 @@ function Cell(tile, actor) {
     }
 }
 
-function Map(width, height, data) {
+function Map(width, height, data, parts) {
     this.width = width;
     this.height = height;
+    
+    this.parts = [
+        ['mirror', 3]
+    ];
     
     if (data)
         this.cells = eval(data);
@@ -90,9 +94,6 @@ function Map(width, height, data) {
         
     this.getCell = function(xy) { return this.cells[xy[1]*this.width + xy[0]]; },
 
-    this.save = function() {
-        alert(this);
-    }
     this.toString = function() {
         return "new Map("+this.width+","+this.height+",\"["+this.cells.toString()+"]\")";
     }

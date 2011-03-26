@@ -260,22 +260,18 @@ function Mirror(type) {
     }
 }
 
-var actorTypes = [
-	new Target("red", "n"),
-	new Target("green", "n"),
-	new Target("blue", "n"),
-	new Laser("red", "n"),
-	new Laser("green", "n"),
-	new Laser("blue", "n"),
-	new Laser("white", "n"),
-	new LaserRear("n"),
-	new Mirror("nw"),
-	new Mirror("ne"),
-	new Mirror("sw"),
-	new Mirror("se"),
-	new Mirror("double-nw"),
-	new Mirror("double-ne"),
-	new Filter("red", "n"),
-	new Filter("green", "n"),
-	new Filter("blue", "n")
-];
+var actorTypes = {
+	"target-red" : new Target("red", "n"),
+	"target-green" : new Target("green", "n"),
+	"target-blue" : new Target("blue", "n"),
+	"laser-red" : new Laser("red", "n"),
+	"laser-green" : new Laser("green", "n"),
+	"laser-blue" : new Laser("blue", "n"),
+	"laser-white" : new Laser("white", "n"),
+	"laser-back" : new LaserRear("n"),
+	"mirror" : new Mirror("nw"),
+	"mirror-double" : new Mirror("double-nw"),
+	"filter-red" : new Filter("red", "n"),
+	"filter-green" : new Filter("green", "n"),
+	"filter-blue" : new Filter("blue", "n")
+};
