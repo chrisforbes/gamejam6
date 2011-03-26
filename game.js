@@ -16,6 +16,21 @@ var tiles = {
     }
 }
 
+var beamArt = [
+    [[1,0], [1,0],   [8,0]],
+    [[1,0], [0,1],   [9,1]],
+    [[1,0], [0,-1],  [9,0]],
+    [[-1,0],[-1,0], [8,0]],
+    [[-1,0],[0,-1], [10,0]],
+    [[-1,0],[0,1],  [10,1]],
+    [[0,1], [0,1],   [8,1]],
+    [[0,1], [-1,0],  [9,0]],
+    [[0,1], [1,0],   [10,0]],
+    [[0,-1],[0,-1], [8,1]],
+    [[0,-1],[-1,0], [9,1]],
+    [[0,-1],[1,0],  [10,1]]
+];
+
 // Objects
 function Target(origin) {
     this.origin = origin;
@@ -31,13 +46,14 @@ function Laser(origin,direction) {
         var cx = x;
         var cy = y;
         while (true) {
-            curDir = map.getCell([cx,cy]).beamExitDirection(curDir);
-            if (curDir == undefined)
+            newDir = map.getCell([cx,cy]).beamExitDirection(curDir);
+            if (newDir == undefined)
             {
                 ctx.fillRect(cx*32+11, cy*32+11, 10,10)
                 break;
-            }    
-            ctx.fillRect(cx*32+6, cy*32+6, 20,20)
+            }
+            drawBeam([cx,cy], curDir, newDir, ctx);
+            curDir = newDir;
             cx += curDir[0];
             cy += curDir[1];
         }
@@ -88,18 +104,32 @@ function Cell(tile, object) {
     }
 }
 
+function drawBeam(xy, d0, d1, ctx) {
+    var origin = undefined;
+    for (var i in beamArt)
+        if (isEqualDir(beamArt[i][0],d0) && isEqualDir(beamArt[i][1],d1)) {
+            origin = beamArt[i][2];
+            break;
+        }
+    
+    ctx.drawImage(imageSheet, 32*origin[0], 32*origin[1], 32, 32, xy[0]*32, xy[1]*32, 32, 32);
+}
+
+
+
 // Level definition
 var floorCell = new Cell(tiles.floor, undefined);
 var wallCell = new Cell(tiles.wall, undefined);
 var emitterCell = new Cell(tiles.floor, new Laser([4,4], [1,0]));
 var targetCell = new Cell(tiles.floor, new Target([4,6]));
 var mirrorCell = new Cell(tiles.floor, new Mirror([2,0], [[[1,0],[0,-1]],[[0,1],[-1,0]]]));
+var mirror2Cell = new Cell(tiles.floor, new Mirror([2,1], [[[0,-1],[-1,0]],[[1,0],[0,1]]]));
 
 var map = {
     "width" : 6,
     "height" : 4,
     "cells" : [wallCell,wallCell,wallCell,wallCell,wallCell,wallCell,
-               wallCell,targetCell,floorCell,mirrorCell,floorCell,wallCell,
+               wallCell,targetCell,floorCell,mirror2Cell,floorCell,wallCell,
                wallCell,emitterCell,floorCell,mirrorCell,floorCell,wallCell,
                wallCell,wallCell,wallCell,wallCell,wallCell,wallCell],
     "getCell" : function(xy) { return this.cells[xy[1]*map.width + xy[0]]; }
