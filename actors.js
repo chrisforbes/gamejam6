@@ -79,7 +79,10 @@ function Laser(color,dir) {
             newDir = map.getCell([cx,cy]).beamHit(this.color, curDir);
             if (newDir == undefined)
             {
-                ctx.fillRect((cx - curDir[0])*32+11, (cy - curDir[1])*32+11, 10,10)
+                //ctx.fillRect((cx - curDir[0])*32+11, (cy - curDir[1])*32+11, 10,10)
+                
+                drawSparkles(cx - curDir[0], cy - curDir[1], this.color, curDir, ctx);
+                
                 break;
             }
             drawBeam(this.color, [cx,cy], curDir, newDir, ctx);

@@ -20,6 +20,12 @@ var beamArt = [
     [[0,-1],[1,0],  [10,1]]
 ];
 
+var sparkleOffsets = [
+	[[-1,0], 0],
+	[[1,0], 2],
+	[[0,-1], 1],
+	[[0,1], 3]
+];
 
 function isEqualDir(d1, d2) {
     return d1[0] == d2[0] && d1[1] == d2[1];
@@ -40,12 +46,29 @@ function drawBeam(color, xy, d0, d1, ctx) {
     ctx.drawImage(imageSheet, 32*origin[0], 32*origin[1]+o, 32, 32, xy[0]*32, xy[1]*32, 32, 32);
 }
 
+function drawSparkles(cx,cy,color,dir,ctx) {
+	var c = color == "green" ? 2 : color == "blue" ? 1 : 0;
+	var d = 0;
+	for( var i in sparkleOffsets )
+		if (isEqualDir(sparkleOffsets[i][0],dir)) {
+			d = sparkleOffsets[i][1];
+			break;
+		}
+	
+	var origin = [ 13 + tick%3, c + 3*d ];	
+	
+	ctx.drawImage( imageSheet, 32*origin[0], 32*origin[1], 32, 32, cx*32, cy*32, 32, 32 );
+}
+
+var tick = 0;
+
 $(function() {
 	setInterval( "main()", 50 );
 });
 
 function main() {
     var ctx = $('canvas')[0].getContext('2d');
+    ++tick;
     ctx.clearRect(0,0, 256, 256);
 
     // Draw the map
