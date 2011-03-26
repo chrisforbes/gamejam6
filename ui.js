@@ -2,16 +2,18 @@ var tilePanels = new Array();
 var actorPanels = new Array();
 var tileSize = 32;
 var isTileSelected = false;
+var editor;
 $(function() { 
 	var ctx = $('#uiSurface')[0].getContext('2d');
-	for (var tile in tiles) {
-		tilePanels[tilePanels.length] = tiles[tile];
-	}
 
-	for (var i in actorTypes) {
+    if (editor) {
+    	for (var tile in tiles) {
+    		tilePanels[tilePanels.length] = tiles[tile];
+    	}
+    }
+    for (var i in actorTypes) {
 		actorPanels[actorPanels.length] = actorTypes[i];
 	}
-
 	setTimeout('drawPanels()', 50); //Fuck chrome with a rusty iron pole.
 	
 	$('#uiSurface').mousedown(uiClick);
