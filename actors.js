@@ -39,6 +39,19 @@ function Target(color, dir) {
     this.toString = function() {
         return "new Target('"+this.color+"', '"+this.dirString+"')";
     }
+
+    this.rotate = function() {
+    	switch(this.dirString) {
+		case "n":
+	    		return new Target(this.color, "e");
+		case "e":
+			return new Target(this.color, "s");
+		case "s":
+			return new Target(this.color, "w");
+		case "w":
+			return new Target(this.color, "n");
+	}
+    }
 }
 
 function Laser(color,dir) {
@@ -96,6 +109,19 @@ function Laser(color,dir) {
     this.toString = function() {
         return "new Laser('"+this.color+"', '"+this.dirString+"')";
     }
+
+    this.rotate = function() {
+    	switch(this.dirString) {
+		case "n":
+	    		return new Laser(this.color, "e");
+		case "e":
+			return new Laser(this.color, "s");
+		case "s":
+			return new Laser(this.color, "w");
+		case "w":
+			return new Laser(this.color, "n");
+	}
+    }
 }
 
 
@@ -119,6 +145,19 @@ function LaserRear(dir) {
     this.beamHit = function(color, dir) { return undefined; }
     this.toString = function() {
         return "new LaserRear('"+this.dirString+"')";
+    }
+
+    this.rotate = function() {
+    	switch(this.dirString) {
+		case "n":
+	    		return new LaserRear("e");
+		case "e":
+			return new LaserRear("s");
+		case "s":
+			return new LaserRear("w");
+		case "w":
+			return new LaserRear("n");
+	}
     }
 }
 
@@ -152,6 +191,19 @@ function Filter(color,dir) {
     
     this.toString = function() {
         return "new Filter('"+this.color+"', '"+this.dirString+"')";
+    }
+
+    this.rotate = function() {
+    	switch(this.dirString) {
+		case "n":
+	    		return new Filter(this.color, "e");
+		case "e":
+			return new Filter(this.color, "s");
+		case "s":
+			return new Filter(this.color, "w");
+		case "w":
+			return new Filter(this.color, "n");
+	}
     }
 }
 
@@ -188,6 +240,23 @@ function Mirror(type) {
     
     this.toString = function() {
         return "new Mirror('"+this.type+"')";
+    }
+
+    this.rotate = function() {
+        switch (this.type) {
+	    case "nw":
+	        return new Mirror("sw");
+	    case "sw":
+	        return new Mirror("ne");
+	    case "ne":
+	        return new Mirror("se");
+	    case "se":
+	        return new Mirror("nw");
+	    case "double-nw":
+	        return new Mirror("double-ne");
+	    case "double-ne":
+	        return new Mirror("double-nw");
+	}
     }
 }
 

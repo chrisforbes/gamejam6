@@ -85,7 +85,6 @@ function uiClick(e) {
 }
 
 function gameSurfaceMove(e) {
-	if (selectedPanel == null) return;
 	var game = $('#gameSurface');
 	var x = e.pageX - game.offset().left;
 	var y = e.pageY - game.offset().top;
@@ -108,7 +107,6 @@ function gameSurfaceMouseDown(e) {
 	if (selectedPanel != null || nearestTileX == null || e.button != 2) return;
 	var xIndex = nearestTileX / tileSize;
 	var yIndex = nearestTileY / tileSize;
-
 	var selectedActor = map.getCell([xIndex, yIndex]).actor;
-//	selectedActor.
+	map.getCell([xIndex, yIndex]).actor = selectedActor.rotate();
 }
