@@ -56,8 +56,17 @@ function Cell(tile, actor) {
 function Map(width, height, data) {
     this.width = width;
     this.height = height;
-    this.cells = eval(data);
-    this.getCell = function(xy) { return this.cells[xy[1]*map.width + xy[0]]; },
+    
+    if (data)
+        this.cells = eval(data);
+    else {
+        this.cells = new Array(width*height);
+        for (var y = 0; y < height; y++)
+            for (var x = 0; x < width; x++)
+                this.cells[width*y+x] = new Cell((x == 0 || y == 0 || x == width - 1 || y == height - 1) ? "wall" : "floor", undefined);
+    }
+        
+    this.getCell = function(xy) { return this.cells[xy[1]*this.width + xy[0]]; },
 
     this.save = function() {
         alert(this);
@@ -67,4 +76,5 @@ function Map(width, height, data) {
     }
 }
 
-var map = new Map(6,4,"[new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('floor', new Target('green', 's')),new Cell('floor', new Filter('green', 'e')),new Cell('floor', new Mirror('sw')),new Cell('floor', new Mirror('sw')),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('floor', new LaserRear('e')),new Cell('floor', new Laser('green', 'e')),new Cell('floor', new Mirror('double-nw')),new Cell('floor', new Mirror('double-ne')),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined)]");
+//var map = new Map(6,4,"[new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('floor', new Target('green', 's')),new Cell('floor', new Filter('green', 'e')),new Cell('floor', new Mirror('sw')),new Cell('floor', new Mirror('sw')),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('floor', new LaserRear('e')),new Cell('floor', new Laser('green', 'e')),new Cell('floor', new Mirror('double-nw')),new Cell('floor', new Mirror('double-ne')),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined)]");
+var map = new Map(10,10);

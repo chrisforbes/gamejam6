@@ -73,10 +73,10 @@ $(function() {
 });
 
 function main() {
-    var ctx = $('canvas')[0].getContext('2d');
+    var canvas = $('canvas')[0];
+    var ctx = canvas.getContext('2d');
     ++tick;
-    ctx.clearRect(0,0, 256, 256);
-
+    ctx.clearRect(0,0, canvas.width, canvas.height);
     // Draw the map
     for (var y = 0; y < map.height; y++)
         for (var x = 0; x < map.width; x++) {
