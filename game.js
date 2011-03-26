@@ -17,11 +17,8 @@ var tiles = {
 }
 
 // Objects
-var objects = {
-    "emitter" : new Laser([4,4], [1,0]),
-    "target" : {
-        "origin" : [4,6],
-    }
+function Target(origin) {
+    this.origin = origin;
 }
 
 function Laser(origin,direction) {
@@ -29,17 +26,42 @@ function Laser(origin,direction) {
     this.direction = direction;
     
     this.shoot = function(x,y,ctx) {
+        ctx.fillStyle = "rgba(128,128,255,0.75)";
         var curDir = [this.direction[0], this.direction[1]];
         var cx = x;
         var cy = y;
         while (true) {
-            curDir = map.getCell([cx,cy]).beamEntered(curDir);
+            curDir = map.getCell([cx,cy]).beamExitDirection(curDir);
             if (curDir == undefined)
+            {
+                ctx.fillRect(cx*32+11, cy*32+11, 10,10)
                 break;
+            }    
             ctx.fillRect(cx*32+6, cy*32+6, 20,20)
             cx += curDir[0];
             cy += curDir[1];
         }
+    }
+}
+
+
+function isEqualDir(d1, d2) {
+    return d1[0] == d2[0] && d1[1] == d2[1];
+}
+
+// origin = artwork origin
+// dirs = array of dir -> dir for in/out
+function Mirror(origin,dirs) {
+    this.origin = origin;
+    this.dirs = dirs;
+    
+    this.beamExitDirection = function(dir) {
+        for (var d in dirs) {
+            if (isEqualDir(dir, dirs[d][0]))
+                return dirs[d][1];
+        }
+            
+        return undefined;
     }
 }
 
@@ -55,10 +77,13 @@ function Cell(tile, object) {
             ctx.drawImage(imageSheet, 32*object.origin[0], 32*object.origin[1], 32, 32, x*32, y*32, 32, 32);
     }
     
-    this.beamEntered = function(dir) {
+    this.beamExitDirection = function(dir) {
         if (!tile.allowBeam)
             return undefined;
         
+        if (object && object.beamExitDirection)
+            return object.beamExitDirection(dir);
+            
         return dir;
     }
 }
@@ -66,15 +91,16 @@ function Cell(tile, object) {
 // Level definition
 var floorCell = new Cell(tiles.floor, undefined);
 var wallCell = new Cell(tiles.wall, undefined);
-var emitterCell = new Cell(tiles.floor, objects.emitter);
-var targetCell = new Cell(tiles.floor, objects.target);
+var emitterCell = new Cell(tiles.floor, new Laser([4,4], [1,0]));
+var targetCell = new Cell(tiles.floor, new Target([4,6]));
+var mirrorCell = new Cell(tiles.floor, new Mirror([2,0], [[[1,0],[0,-1]],[[0,1],[-1,0]]]));
 
 var map = {
     "width" : 6,
     "height" : 4,
     "cells" : [wallCell,wallCell,wallCell,wallCell,wallCell,wallCell,
-               wallCell,targetCell,floorCell,floorCell,floorCell,wallCell,
-               wallCell,emitterCell,floorCell,floorCell,floorCell,wallCell,
+               wallCell,targetCell,floorCell,mirrorCell,floorCell,wallCell,
+               wallCell,emitterCell,floorCell,mirrorCell,floorCell,wallCell,
                wallCell,wallCell,wallCell,wallCell,wallCell,wallCell],
     "getCell" : function(xy) { return this.cells[xy[1]*map.width + xy[0]]; }
 }
