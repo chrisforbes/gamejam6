@@ -41,8 +41,7 @@ function drawBeam(color, xy, d0, d1, ctx) {
 }
 
 $(function() {
-    //map.save();
-	setTimeout( "main()", 50 );
+	setInterval( "main()", 50 );
 });
 
 function main() {
