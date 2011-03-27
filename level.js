@@ -162,6 +162,7 @@ function setLevel(l) {
         alert("Invalid level selected");
         return;
     }
+    $('#level_counter').html(l+1);
     map = levels[l];
     drawActorbin();
     drawTilebin();
