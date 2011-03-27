@@ -28,6 +28,11 @@ var tiles = {
 	"caution5" : new Tile("caution5", [1,6], true, true),
 	"caution6" : new Tile("caution6", [2,6], true, true),
 	"caution7" : new Tile("caution7", [3,6], true, true),
+	"caution8" : new Tile("caution8", [2,5], true, true),
+	"caution9" : new Tile("caution9", [0,12], true, true),
+	"caution10" : new Tile("caution10", [1,12], true, true),
+	"caution11" : new Tile("caution11", [2,12], true, true),
+	"caution12" : new Tile("caution12", [3,12], true, true),
 };
 
 function Tile(name, origin, allowPlace, allowBeam) {
