@@ -33,6 +33,19 @@ var tiles = {
 	"caution10" : new Tile("caution10", [1,12], true, true),
 	"caution11" : new Tile("caution11", [2,12], true, true),
 	"caution12" : new Tile("caution12", [3,12], true, true),
+	"tcaution0" : new Tile("tcaution0", [0,13], true, true),
+	"tcaution1" : new Tile("tcaution1", [1,13], true, true),
+	"tcaution2" : new Tile("tcaution2", [2,13], true, true),
+	"tcaution3" : new Tile("tcaution3", [3,13], true, true),
+	"tcaution4" : new Tile("tcaution4", [0,14], true, true),
+	"tcaution5" : new Tile("tcaution5", [1,14], true, true),
+	"tcaution6" : new Tile("tcaution6", [2,14], true, true),
+	"tcaution7" : new Tile("tcaution7", [3,14], true, true),
+	"tcaution8" : new Tile("tcaution8", [0,15], true, true),
+	"tcaution9" : new Tile("tcaution9", [1,15], true, true),
+	"tcaution10" : new Tile("tcaution10", [2,15], true, true),
+	"tcaution11" : new Tile("tcaution11", [3,15], true, true),
+	"tcaution12" : new Tile("tcaution12", [0,6], true, true),
 };
 
 function Tile(name, origin, allowPlace, allowBeam) {
