@@ -202,6 +202,7 @@ function Map(width, height, data, parts, time) {
         	    for (var i in this.parts)
         	        score_parts_raw += this.parts[i];
         	    
+        	    $('#score_parts_row').hide();
         	    if (score_parts_raw > 0) {
         	        $('#score_parts_row').show();
         	        $('#score_parts_raw').html(score_parts_raw)
@@ -210,8 +211,8 @@ function Map(width, height, data, parts, time) {
             	    $('#score_parts_points').html(score_parts_points)
         	    }
         	    
-        	    /* wtf information leak
         	    // Destruction
+        	    $('#score_destruction_row').hide();
         	    if (this.destroyedObjects > 0) {
         	        $('#score_destruction_row').show();
         	        $('#score_destruction_raw').html(this.destroyedObjects)
@@ -219,7 +220,6 @@ function Map(width, height, data, parts, time) {
         	        points += score_destruction_points;
             	    $('#score_destruction_points').html(score_destruction_points)
         	    }
-        	    */
         	    
         	    // Totals
                 $('#score_total_points').html(points)
