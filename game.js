@@ -93,6 +93,8 @@ function SelectionBrush() {
     
     this.draw = function(ctx) {
         if (nearestTileX == null) return;
+        var a = map.getCell([nearestTileX / tileSize,nearestTileY / tileSize]).actor;
+        if (!a || !a.editable()) return;
         
         ctx.drawImage(imageSheet, (4 + (tick >> 1)%3) * tileSize,
             14 * tileSize, tileSize, tileSize,
