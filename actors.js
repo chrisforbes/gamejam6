@@ -31,8 +31,9 @@ function Target(color, dir) {
     }
     
     this.beamHit = function(color, dir) {
-        if (color == this.color && isEqualDir(dir, this.direction))
-            alert("winnar")
+        if (color == this.color && isEqualDir(dir, this.direction)) {
+		$('#success').show();
+	}
             
         return undefined;
     }
