@@ -8,7 +8,11 @@ function ActorBrush(actor) {
     this.type = "actor";
     this.value = actor;
     this.origin = actor.origin;
-    this.onPaint = function(x,y) {map.getCell([x,y]).actor = actor; brush = new SelectionBrush();};
+    this.onPaint = function(x,y) {
+        var b = map.getCell([x,y]).actor;
+        map.getCell([x,y]).actor = actor;
+        brush = b ? new ActorBrush(b) : new SelectionBrush();
+    };
 }
 ActorBrush.prototype = new Brush();
 
