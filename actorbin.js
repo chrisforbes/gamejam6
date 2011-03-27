@@ -81,7 +81,7 @@ function drawActorbin() {
 			a.origin[1] * tileSize, tileSize, 
 			tileSize, x * tileSize, y * tileSize, tileSize, tileSize);
 			
-		var count = 42;
+		var count = actors[p][1];
 		var u = x * tileSize + 24;
 		var first = true;
 		while( first || count > 0 ) {
