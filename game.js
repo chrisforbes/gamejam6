@@ -74,13 +74,23 @@ function SelectionBrush() {
     this.origin = [4,14];
     
     this.onPaint = function(x, y, e) {
-        var a = map.getCell([x,y]).actor;
-        if (a && a.editable()) {
-            map.parts[a.name]++;
-            brush = new ActorBrush(a);
-            drawActorbin();
-            map.getCell([x,y]).actor = undefined;
+        switch (e.which) {
+            case 1:
+                var c = map.getCell([x,y]);
+                if (c.actor && c.actor.editable()) {
+                    map.parts[c.actor.name]++;
+                    brush = new ActorBrush(c.actor);
+                    c.actor = undefined;
+                }
+            break;
+            case 3:
+                var c = map.getCell([x,y]);
+                map.parts[c.actor.name]++;
+                c.actor = undefined;
+            break;
         }
+        drawActorbin();
+
     };
     
     this.draw = function(ctx) {
