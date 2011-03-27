@@ -57,7 +57,7 @@ function Target(name, color, dir) {
     	}
     }
     
-    this.editable = function() {return editor ? true : false;}
+    this.editable = function() {return editor;}
 }
 
 function Laser(name, color, dir) {
@@ -167,6 +167,28 @@ function LaserRear(name, dir) {
     }
     this.editable = function() {return editor;}
 }
+
+var fluffs = [[7,14],[7,15],[8,13],[8,14],[8,15],[9,13],[9,14],[9,15],[10,13],[10,14],[10,15],
+				[11,12],[11,13],[11,14],[11,15]];
+
+function Fluff(name, dir) {
+    this.name = name;
+    this.dirString = dir;
+    this.origin = fluffs[dir];
+    
+    this.beamHit = function(color, dir) { return undefined; }
+    this.toString = function() {
+        return "new Fluff('"+this.name+"','"+this.dirString+"')";
+    }
+
+    this.rotate = function() {
+		var n = this.dirString + 1;
+		if (n >= fluffs.length) n = 0;
+		return new Fluff(this.name, n);
+    }
+    this.editable = function() {return editor;}
+}
+
 
 function Filter(name, color, dir) {
     this.name = name;
@@ -284,4 +306,5 @@ var actorTypes = {
 	"filter-green" : new Filter("filter-green", "green", "n"),
 	"filter-blue" : new Filter("filter-blue", "blue", "n"),
 	"filter-white" : new Filter("filter-white", "white", "n"),
+	"fluff" : new Fluff("fluff", 0),
 };
