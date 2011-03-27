@@ -68,6 +68,9 @@ function drawActorbin() {
 	var actors = map.getActorsAndCounts();
 	for (var p in actors) {
 	    var a = actorTypes[actors[p][0]];
+	    var count = actors[p][1];
+	    
+	    if (!count) ctx.globalAlpha = 0.3;
 	    
 	    // Draw selection rect
 		if (brush && brush.type == "actor" && brush.value == a) {
@@ -80,8 +83,7 @@ function drawActorbin() {
 		ctx.drawImage(imageSheet, a.origin[0] * tileSize, 
 			a.origin[1] * tileSize, tileSize, 
 			tileSize, x * tileSize, y * tileSize, tileSize, tileSize);
-			
-		var count = actors[p][1];
+		
 		var u = x * tileSize + 24;
 		var first = true;
 		while( first || count > 0 ) {
@@ -91,6 +93,8 @@ function drawActorbin() {
 			first = false;
 		}
 		drawDigit( ctx, u, y * tileSize + 21, 'x' );
+		
+		ctx.globalAlpha = 1;
 		
 		x++;
 		if (x >= maxPanelsInRow) {
