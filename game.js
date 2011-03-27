@@ -5,6 +5,8 @@ var tileSize = 32;
 var nearestTileX = null;
 var nearestTileY = null;
 
+var sidebarWidth = 100;
+
 var beamArt = [
     [[1,0], [1,0],   [8,0]],
     [[1,0], [0,1],   [9,1]],
@@ -140,6 +142,7 @@ function gameSurfaceMove(e) {
 
 	nearestTileX = Math.floor(x / tileSize) * tileSize;
 	nearestTileY = Math.floor(y / tileSize) * tileSize;
+	if (nearestTileX >= map.width*tileSize) nearestTileX = null;
 }
 
 function gameSurfaceClick(e) {
@@ -155,8 +158,8 @@ function gameSurfaceKeyDown(e) {
 function main() {
     var canvas = $('#gameSurface')[0];
     var ctx = canvas.getContext('2d');
-    if (canvas.width != map.width * tileSize) {
-        canvas.width = map.width * tileSize;
+    if (canvas.width != map.width * tileSize + sidebarWidth) {
+        canvas.width = map.width * tileSize + sidebarWidth;
 	$('#gameWrapper').width(map.width * tileSize);
     }
     if (canvas.height != map.height * tileSize) {
@@ -164,7 +167,7 @@ function main() {
 	$('#gameWrapper').height(map.height * tileSize);
     }
     ++tick;
-    ctx.clearRect(0,0, canvas.width, canvas.height);
+    ctx.clearRect(0,0, canvas.width+sidebarWidth, canvas.height);
     // Draw the map
     for (var y = 0; y < map.height; y++)
         for (var x = 0; x < map.width; x++) {

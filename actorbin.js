@@ -91,8 +91,6 @@ function drawDigit(ctx,x,y,n)
 		
 	ctx.drawImage(imageSheet, 4 * 32 + col*16, 12 * 32 + row*16, 16, 16, 
 			x, y, 16, 16 );
-		ctx.drawImage(imageSheet, 4 * 32 + col*16, 12 * 32 + row*16, 16, 16, 
-			x, y, 16, 16 );
 }
 
 function drawActorbin() {
