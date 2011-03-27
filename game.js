@@ -72,6 +72,14 @@ $(function() {
 	setInterval( "main()", 50 );
 });
 
+var brush;
+
+function Brush(type, value) {
+    this.type = type;
+    this.value = value;
+}
+
+
 function main() {
     var canvas = $('#gameSurface')[0];
     var ctx = canvas.getContext('2d');
