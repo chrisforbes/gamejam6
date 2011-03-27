@@ -2,9 +2,18 @@ $(function() {
 	imageSheet.onload = drawActorbin();
 	$('#actorbin').mousedown(actorbinClicked);
 });
+//function Brush(type, value, origin, onPaint) {
+
+function ActorBrush(actor) {
+    this.type = "actor";
+    this.value = actor;
+    this.origin = actor.origin;
+    this.onPaint = function(x,y) {map.getCell([x,y]).actor = actor; brush = new SelectionBrush();};
+}
+ActorBrush.prototype = new Brush();
 
 function actorbinClicked(e) {
-    brush = undefined;
+    brush = new SelectionBrush();
 	var ui = $('#actorbin');
 	var maxPanelsInRow = ui.width() / tileSize;
 
@@ -16,7 +25,7 @@ function actorbinClicked(e) {
 	var actors = map.getActorsAndCounts();
 	// Make the tile the active brush
 	if (x < maxPanelsInRow && i < actors.length) {
-	    brush = new Brush("actor", actors[i][0], actorTypes[actors[i][0]].origin, function(x,y) {map.getCell([x,y]).actor = actorTypes[actors[i][0]]});
+	    brush = new ActorBrush(actorTypes[actors[i][0]]);
 	}
 	drawActorbin();
 	drawTilebin();
@@ -39,7 +48,7 @@ function drawActorbin() {
 			tileSize, x * tileSize, y * tileSize, tileSize, tileSize);
 
 		// Draw selection rect
-		if (brush && brush.type == "actor" && brush.value == actors[p][0]) {
+		if (brush && brush.type == "actor" && brush.value == actorTypes[actors[p][0]]) {
 		    ctx.lineWidth = 3;
 	        ctx.strokeStyle = "limegreen";
         	ctx.strokeRect(x * tileSize + 1, y * tileSize + 1,

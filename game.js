@@ -78,7 +78,20 @@ $(function() {
 	setInterval( "main()", 50 );
 });
 
-var brush;
+function SelectionBrush() {
+    this.type = "select";
+    this.origin = [0,0];
+    this.onPaint = function(x,y) {
+        var a = map.getCell([x,y]).actor;
+        if (a) {
+            brush = new ActorBrush(a);
+            map.getCell([x,y]).actor = undefined;
+        }
+    };
+}
+SelectionBrush.prototype = new Brush();
+
+var brush = new SelectionBrush();
 
 function Brush(type, value, origin, onPaint) {
     this.type = type;
@@ -92,8 +105,8 @@ function Brush(type, value, origin, onPaint) {
         ctx.shadowOffsetX = -3;
         ctx.shadowOffsetY = 3;
         ctx.shadowBlur = 2;
-        ctx.drawImage(imageSheet, origin[0] * tileSize,
-            origin[1] * tileSize, tileSize, tileSize,
+        ctx.drawImage(imageSheet, this.origin[0] * tileSize,
+            this.origin[1] * tileSize, tileSize, tileSize,
             nearestTileX + 3, nearestTileY - 3, tileSize, tileSize);
         ctx.shadowColor = "rgba(0,0,0,0)";
     }

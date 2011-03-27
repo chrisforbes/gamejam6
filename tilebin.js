@@ -10,7 +10,7 @@ $(function() {
 });
 
 function tilebinClicked(e) {
-    brush = undefined;
+    brush = new SelectionBrush();
 	var ui = $('#tilebin');
 	var maxPanelsInRow = ui.width() / tileSize;
 
