@@ -144,7 +144,7 @@ function gameSurfaceClick(e) {
 }
 
 function gameSurfaceKeyDown(e) {
-    if (brush && brush.rotate && e.which == 32)
+    if (brush && brush.rotate && e.which == 82)
     	brush.rotate();
 }
 
