@@ -1,25 +1,25 @@
 body {
 	background-color: #222; 
 	color: #eee;
+	font-family: impact
 }
 
-h1, h3 {
+h1, h2, h3 {
 	text-align: center;
-	font-family: impact;
 	font-weight: 300;
-	letter-spacing: 2px;
+	letter-spacing: 2px
 }
 
 .centered {
 	margin: 0 auto;
-	text-align: center;
+	text-align: center
 }
 
 .bin {
 	border: 2px solid #eee;
 	border-radius: 4px;
 	padding: 3px;
-	margin-top: 10px;
+	margin-top: 10px
 }
 
 #success {
@@ -31,14 +31,33 @@ h1, h3 {
 	height:100%;
 	text-align:center;
 	z-index: 1000;
-	background-color: rgba(0,0,0,0.5);
+	background-color: rgba(0,0,0,0.5)
 }
 
-#success div {
-	width:250px;
+#dialog {
+	width:320px;
 	margin: 200px auto;
 	background-color: #444;
 	border:1px solid #000;
 	padding:15px;
-	text-align:center;
+	text-align:center
 }
+
+td { 
+	color: yellow;
+	text-align: right;
+	width: 280px
+}
+
+td.label { color: white }
+td.totalscore { font-size: 1.5em }
+
+div h1 { line-height: .5em }
+
+#nextbutton { height: 1.5em; width: 220px; 
+	background-color: #888; border: 2px solid white; 
+	margin: auto; margin-top: 0.7em }
+
+#nextbutton:hover { background-color: #aaa }
+
+hr { color: #eee }

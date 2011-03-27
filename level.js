@@ -104,6 +104,7 @@ function Map(width, height, data, parts) {
     this.parts = {
         'mirror' : 3,
         'laser-red' : 3,
+        'target-red' : 1
     };
     
     if (data)
