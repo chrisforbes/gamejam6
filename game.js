@@ -179,30 +179,21 @@ function main() {
         brush.draw(ctx);
 
     // Evaluate win state
-    if (!editor) {
-		if ($('#success').is(':hidden')) {
-			var win = true;
-			var containsWinnableActors = false;
-			for (i in map.cells) {
-				if (map.cells[i].actor && map.cells[i].actor.isWinnable) {
-					containsWinnableActors = true;
-					if (!map.cells[i].actor.isWin) 
-						win = false;
-			}
-			}
-
-			if (win && containsWinnableActors) {
-				$('#success').show();
-			}
-		}
-	}
+    map.tick();
 }
 
+var level = 0;
+function loadNextLevel() {
+    if (++level < levels.length)
+        setLevel(level);
+}
+
+var intervalToken;
 $(function() {
     $('#gameSurface').mousemove(gameSurfaceMove);
 	$('#gameSurface').mouseout(function() { nearestTileX = null; });
 	$('#gameSurface').mousedown(gameSurfaceClick);
 	$(document).keydown(gameSurfaceKeyDown);
-	setLevel(0);
-	setInterval( "main()", 50 );
+	setLevel(level);
+	intervalToken = setInterval( "main()", 50 );
 });
