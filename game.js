@@ -80,11 +80,11 @@ $(function() {
 
 var brush;
 
-function Brush(type, value, origin, onclick) {
+function Brush(type, value, origin, onPaint) {
     this.type = type;
     this.value = value;
     this.origin = origin;
-    this.onclick = onclick;
+    this.onPaint = onPaint;
     this.draw = function(ctx) {
         if (nearestTileX == null) return;
 
@@ -96,6 +96,18 @@ function Brush(type, value, origin, onclick) {
             origin[1] * tileSize, tileSize, tileSize,
             nearestTileX + 3, nearestTileY - 3, tileSize, tileSize);
         ctx.shadowColor = "rgba(0,0,0,0)";
+    }
+    
+    this.paint = function() {
+        if (nearestTileX == null) return;
+	    var xIndex = nearestTileX / tileSize;
+	    var yIndex = nearestTileY / tileSize;
+	    
+	    this.onPaint(xIndex, yIndex);
+    }
+    
+    this.rotate = function() {
+        
     }
 }
 
@@ -109,18 +121,8 @@ function gameSurfaceMove(e) {
 }
 
 function gameSurfaceClick(e) {
-	if (selectedPanel == null || nearestTileX == null) return;
-	var xIndex = nearestTileX / tileSize;
-	var yIndex = nearestTileY / tileSize;
-	if (editor) {
-	    if (isTileSelected)
-    		map.getCell([xIndex,yIndex]).tile = selectedPanel;
-    	else
-    	 	map.getCell([xIndex,yIndex]).actor = selectedPanel;
-	} else {
-	    alert(selectedPanel)
-	}
-
+    if (brush)
+        brush.paint();
 }
 
 function gameSurfaceMouseDown(e) {
