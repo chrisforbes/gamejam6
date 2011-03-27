@@ -24,11 +24,7 @@
 		<script src="game.js"></script>
 		<script src="tilebin.js"></script>
 		<script src="actorbin.js"></script>
-    <style>
-      body { background-color: #222; color: #eee }
-	  .centered {margin: 0 auto; width: 512px; text-align:center;}
-      h1, h3 { text-align: center; font-family: impact; font-weight: 300; letter-spacing: 2px }
-    </style>
+		<link type="text/css" rel="stylesheet" href="main.css" />
 	</head>
 	<body>
     <h1>Huge Frickin' Lasers [Editor]</h1>
@@ -44,9 +40,9 @@
 			<input type="button" value="Load Map" onclick="loadClicked()" /><br />
 			<textarea id="loadsave"></textarea>
 		</div>
-		<div class="centered">
-			<canvas id="tilebin" width="512px" height="100px"></canvas>
-			<canvas id="actorbin" width="512px" height="100px"></canvas>
+		<div class="centered bin" style="width: 512px">
+			<canvas id="tilebin" width="512px" height="64px"></canvas>
+			<canvas id="actorbin" width="512px" height="32px"></canvas>
 		</div>
 	</body>
 </html>
