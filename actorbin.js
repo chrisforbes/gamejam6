@@ -16,7 +16,14 @@ function ActorBrush(actor) {
                 map.parts[this.value.name]--;
 
                 map.getCell([x,y]).actor = this.value;
-                brush = b ? new ActorBrush(b) : new SelectionBrush();
+                
+                var actors = map.getActorsAndCounts();
+                if (b)
+                    brush = new ActorBrush(b);
+                else if (actors[this.value.name] != 0)
+                    brush = new ActorBrush(actorTypes[this.value.name]);
+                else
+                    brush = new SelectionBrush();
             break;
             case 3:
                 brush = new SelectionBrush();
