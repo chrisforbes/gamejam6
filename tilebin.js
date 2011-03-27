@@ -29,6 +29,7 @@ function tilebinClicked(e) {
 
 function drawTilebin() {
 	var ui = $('#tilebin');
+	if (! ui[0]) return;
 	var ctx = ui[0].getContext('2d');
 	ctx.clearRect(0,0,ui.width(),ui.height());
 
