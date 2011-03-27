@@ -187,12 +187,15 @@ function loadNextLevel() {
     if (++level < levels.length)
         setLevel(level);
 }
-
 var intervalToken;
-$(function() {
+
+$(window).load(function() {
     $('#gameSurface').mousemove(gameSurfaceMove);
 	$('#gameSurface').mouseout(function() { nearestTileX = null; });
 	$('#gameSurface').mousedown(gameSurfaceClick);
+	
+	$('#actorbin').mousedown(actorbinClicked);
+    $('#tilebin').mousedown(tilebinClicked);
 	$(document).keydown(gameSurfaceKeyDown);
 	setLevel(level);
 	intervalToken = setInterval( "main()", 50 );

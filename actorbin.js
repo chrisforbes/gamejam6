@@ -1,7 +1,3 @@
-$(function() { 
-	imageSheet.onload += drawActorbin();
-	$('#actorbin').mousedown(actorbinClicked);
-});
 
 function ActorBrush(actor) {
     this.type = "actor";

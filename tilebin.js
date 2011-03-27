@@ -4,9 +4,6 @@ $(function() {
 	for (var tile in tiles) {
 		tilePanels[tilePanels.length] = tiles[tile];
 	}
-	
-	imageSheet.onload += drawTilebin();
-	$('#tilebin').mousedown(tilebinClicked);
 });
 
 function tilebinClicked(e) {
