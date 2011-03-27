@@ -175,8 +175,14 @@ function Fluff(name, dir) {
     this.name = name;
     this.dirString = dir;
     this.origin = fluffs[dir];
+    this.destroyed = false;
     
-    this.beamHit = function(color, dir) { return undefined; }
+    // zzzzzap
+    this.beamHit = function(color, dir) {
+        this.destroyed = true;
+        this.origin = [12, 15];
+        return dir;
+    }
     this.toString = function() {
         return "new Fluff('"+this.name+"','"+this.dirString+"')";
     }
@@ -186,7 +192,7 @@ function Fluff(name, dir) {
 		if (n >= fluffs.length) n = 0;
 		return new Fluff(this.name, n);
     }
-    this.editable = function() {return editor;}
+    this.editable = function() {return editor || this.destroyed;}
 }
 
 

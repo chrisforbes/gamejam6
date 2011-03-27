@@ -78,7 +78,7 @@ function SelectionBrush() {
         switch (e.which) {
             case 1:
                 var c = map.getCell([x,y]);
-                if (c.actor && c.actor.editable()) {
+                if (c.actor && c.actor.editable() && !c.actor.destroyed) {
                     map.parts[c.actor.name]++;
                     brush = new ActorBrush(c.actor);
                     c.actor = undefined;

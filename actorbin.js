@@ -9,7 +9,7 @@ function ActorBrush(actor) {
             case 1:
                 if (!map.getCell([x,y]).allowsActor()) return;
                 var b = map.getCell([x,y]).actor;
-                if (b) {
+                if (b && !b.destroyed) {
                     // Give the part back
                     map.parts[b.name]++;
                 }
@@ -18,7 +18,7 @@ function ActorBrush(actor) {
                 map.getCell([x,y]).actor = this.value;
                 
                 var actors = map.getActorsAndCounts();
-                if (b)
+                if (b && !b.destroyed)
                     brush = new ActorBrush(b);
                 else if (actors[this.value.name] != 0)
                     brush = new ActorBrush(actorTypes[this.value.name]);
