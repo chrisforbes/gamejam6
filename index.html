@@ -89,11 +89,18 @@
 		<input type="button" class="button" value="Continue" onclick="$('#success').hide(); loadNextLevel();" />
       </div>
     </div>
-		<div id="gameWrapper" class="centered"  oncontextmenu="return false;">
-			<canvas id="gameSurface" width="512px" height="512px"> 
-				Your browser does not support the canvas element.
-			</canvas>
-			<canvas id="actorbin" width="512px" height="100px"></canvas>
+    <div id="fail" class="centered panel">
+    	<div id="dialog">
+        	<h1>Level Failed</h1>
+        	<hr></hr>
+			<input type="button" class="button" value="Retry" onclick="$('#fail').hide(); restartLevel();" />
 		</div>
+	</div>
+	<div id="gameWrapper" class="centered"  oncontextmenu="return false;">
+		<canvas id="gameSurface" width="512px" height="512px"> 
+			Your browser does not support the canvas element.
+		</canvas>
+		<canvas id="actorbin" width="512px" height="100px"></canvas>
+	</div>
 	</body>
 </html>

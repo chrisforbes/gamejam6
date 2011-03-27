@@ -1,8 +1,7 @@
 // Tile definitions
 var imageSheet = new Image();
-var tileSize = 32;
 imageSheet.src = 'sprites.png';
-var selectedPanel = null;
+var tileSize = 32;
 var nearestTileX = null;
 var nearestTileY = null;
 
@@ -197,7 +196,10 @@ function loadNextLevel() {
     if (++level < levels.length)
         setLevel(level);
 }
-var intervalToken;
+
+function restartLevel() {
+    setLevel(level);
+}
 
 $(window).load(function() {
     $('#gameSurface').mousemove(gameSurfaceMove);
@@ -208,5 +210,5 @@ $(window).load(function() {
     $('#tilebin').mousedown(tilebinClicked);
 	$(document).keydown(gameSurfaceKeyDown);
 	setLevel(level);
-	intervalToken = setInterval( "main()", 50 );
+	setInterval( "main()", 50 );
 });
