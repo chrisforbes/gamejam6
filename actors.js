@@ -4,6 +4,8 @@
 function Target(color, dir) {
     this.color = color;
     this.dirString = dir;
+    this.isWinnable = true;
+    this.isWin = false;
     var c = 8;
     switch(color) {
         case "red": c = 8; break;
@@ -32,7 +34,7 @@ function Target(color, dir) {
     
     this.beamHit = function(color, dir) {
         if (color == this.color && isEqualDir(dir, this.direction)) {
-		$('#success').show();
+		this.isWin = true;
 	}
             
         return undefined;
