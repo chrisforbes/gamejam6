@@ -80,7 +80,7 @@ $(function() {
 
 function SelectionBrush() {
     this.type = "select";
-    this.origin = [0,0];
+    this.origin = [4,14];
     this.onPaint = function(x,y) {
         var a = map.getCell([x,y]).actor;
         if (a) {
@@ -88,6 +88,14 @@ function SelectionBrush() {
             map.getCell([x,y]).actor = undefined;
         }
     };
+    
+    this.draw = function(ctx) {
+        if (nearestTileX == null) return;
+        
+        ctx.drawImage(imageSheet, (4 + (tick >> 1)%3) * tileSize,
+            14 * tileSize, tileSize, tileSize,
+            nearestTileX, nearestTileY, tileSize, tileSize);
+    }
 }
 SelectionBrush.prototype = new Brush();
 
