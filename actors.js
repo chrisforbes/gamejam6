@@ -1,6 +1,7 @@
 
 // Actors
-function Target(color, dir) {
+function Target(name, color, dir) {
+    this.name = name;
     this.color = color;
     this.dirString = dir;
     this.isWinnable = true;
@@ -40,26 +41,27 @@ function Target(color, dir) {
     }
     
     this.toString = function() {
-        return "new Target('"+this.color+"', '"+this.dirString+"')";
+        return "new Target('"+this.name+"','"+this.color+"', '"+this.dirString+"')";
     }
 
     this.rotate = function() {
     	switch(this.dirString) {
     		case "n":
-    	    		return new Target(this.color, "e");
+    	    		return new Target(this.name, this.color, "e");
     		case "e":
-    			return new Target(this.color, "s");
+    			return new Target(this.name, this.color, "s");
     		case "s":
-    			return new Target(this.color, "w");
+    			return new Target(this.name, this.color, "w");
     		case "w":
-    			return new Target(this.color, "n");
+    			return new Target(this.name, this.color, "n");
     	}
     }
     
     this.editable = function() {return editor ? true : false;}
 }
 
-function Laser(color,dir) {
+function Laser(name, color, dir) {
+    this.name = name;
     this.color = color;
     this.dirString = dir;
     var c = 4;
@@ -109,26 +111,27 @@ function Laser(color,dir) {
     this.beamHit = function(color, dir) { return isEqualDir(dir, this.direction) ? dir : undefined; }
 
     this.toString = function() {
-        return "new Laser('"+this.color+"', '"+this.dirString+"')";
+        return "new Laser('"+this.name+"','"+this.color+"', '"+this.dirString+"')";
     }
 
     this.rotate = function() {
     	switch(this.dirString) {
     		case "n":
-    	    		return new Laser(this.color, "e");
+    	    		return new Laser(this.name, this.color, "e");
     		case "e":
-    			return new Laser(this.color, "s");
+    			return new Laser(this.name, this.color, "s");
     		case "s":
-    			return new Laser(this.color, "w");
+    			return new Laser(this.name, this.color, "w");
     		case "w":
-    			return new Laser(this.color, "n");
+    			return new Laser(this.name, this.color, "n");
     	}
     }
     this.editable = function() {return editor;}
 }
 
 
-function LaserRear(dir) {
+function LaserRear(name, dir) {
+    this.name = name;
     this.dirString = dir;
     switch (dir) {
         case "n":
@@ -147,25 +150,26 @@ function LaserRear(dir) {
     
     this.beamHit = function(color, dir) { return undefined; }
     this.toString = function() {
-        return "new LaserRear('"+this.dirString+"')";
+        return "new LaserRear('"+this.name+"','"+this.dirString+"')";
     }
 
     this.rotate = function() {
     	switch(this.dirString) {
     		case "n":
-    	    		return new LaserRear("e");
+    	    		return new LaserRear(this.name, "e");
     		case "e":
-    			return new LaserRear("s");
+    			return new LaserRear(this.name, "s");
     		case "s":
-    			return new LaserRear("w");
+    			return new LaserRear(this.name, "w");
     		case "w":
-    			return new LaserRear("n");
+    			return new LaserRear(this.name, "n");
     	}
     }
     this.editable = function() {return editor;}
 }
 
-function Filter(color,dir) {
+function Filter(name, color, dir) {
+    this.name = name;
     this.color = color;
     this.dirString = dir;
     var c = 2;
@@ -195,21 +199,22 @@ function Filter(color,dir) {
     }
     
     this.toString = function() {
-        return "new Filter('"+this.color+"', '"+this.dirString+"')";
+        return "new Filter('"+this.name+"','"+this.color+"', '"+this.dirString+"')";
     }
 
     this.rotate = function() {
     	switch(this.dirString) {
     		case "n":
-    	    		return new Filter(this.color, "e");
+    	    		return new Filter(this.name, this.color, "e");
     		case "e":
-    			return new Filter(this.color, "n");
+    			return new Filter(this.name, this.color, "n");
     	}
     }
     this.editable = function() {return editor;}
 }
 
-function Mirror(type) {
+function Mirror(name, type) {
+    this.name = name;
     this.type = type;
     if (type == "nw") {
         this.origin = [2,0];
@@ -241,42 +246,42 @@ function Mirror(type) {
     }
     
     this.toString = function() {
-        return "new Mirror('"+this.type+"')";
+        return "new Mirror('"+this.name+"',"+this.type+"')";
     }
 
     this.rotate = function() {
         switch (this.type) {
     	    case "nw":
-    	        return new Mirror("ne");
+    	        return new Mirror(this.name, "ne");
     	    case "sw":
-    	        return new Mirror("nw");
+    	        return new Mirror(this.name, "nw");
     	    case "ne":
-    	        return new Mirror("se");
+    	        return new Mirror(this.name, "se");
     	    case "se":
-    	        return new Mirror("sw");
+    	        return new Mirror(this.name, "sw");
     	    case "double-nw":
-    	        return new Mirror("double-ne");
+    	        return new Mirror(this.name, "double-ne");
     	    case "double-ne":
-    	        return new Mirror("double-nw");
+    	        return new Mirror(this.name, "double-nw");
     	}
     }
     this.editable = function() {return true;}
 }
 
 var actorTypes = {
-	"target-red" : new Target("red", "n"),
-	"target-green" : new Target("green", "n"),
-	"target-blue" : new Target("blue", "n"),
-	"target-white" : new Target("white", "n"),
-	"laser-red" : new Laser("red", "n"),
-	"laser-green" : new Laser("green", "n"),
-	"laser-blue" : new Laser("blue", "n"),
-	"laser-white" : new Laser("white", "n"),
-	"laser-back" : new LaserRear("n"),
-	"mirror" : new Mirror("nw"),
-	"mirror-double" : new Mirror("double-nw"),
-	"filter-red" : new Filter("red", "n"),
-	"filter-green" : new Filter("green", "n"),
-	"filter-blue" : new Filter("blue", "n"),
-	"filter-white" : new Filter("white", "n"),
+	"target-red" : new Target("target-red", "red", "n"),
+	"target-green" : new Target("target-green", "green", "n"),
+	"target-blue" : new Target("target-blue", "blue", "n"),
+	"target-white" : new Target("target-white", "white", "n"),
+	"laser-red" : new Laser("laser-red", "red", "n"),
+	"laser-green" : new Laser("laser-green", "green", "n"),
+	"laser-blue" : new Laser("laser-blue", "blue", "n"),
+	"laser-white" : new Laser("laser-white", "white", "n"),
+	"laser-back" : new LaserRear("laser-back", "n"),
+	"mirror" : new Mirror("mirror", "nw"),
+	"mirror-double" : new Mirror("mirror-double", "double-nw"),
+	"filter-red" : new Filter("filter-red", "red", "n"),
+	"filter-green" : new Filter("filter-green", "green", "n"),
+	"filter-blue" : new Filter("filter-blue", "blue", "n"),
+	"filter-white" : new Filter("filter-white", "white", "n"),
 };
