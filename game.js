@@ -62,7 +62,7 @@ function drawSparkles(cx,cy,color,dir,ctx) {
 			break;
 		}
 	
-	var origin = [ 13 + tick%3, c + 3*d ];	
+	var origin = [ 13 + tick%3, c + 4*d ];	
 	
 	ctx.drawImage( imageSheet, tileSize*origin[0], tileSize*origin[1], tileSize, tileSize, cx*tileSize, cy*tileSize, tileSize, tileSize );
 }
