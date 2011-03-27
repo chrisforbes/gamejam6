@@ -6,6 +6,7 @@ var nearestTileX = null;
 var nearestTileY = null;
 
 var sidebarWidth = 100;
+var totalPoints = 0;
 
 var beamArt = [
     [[1,0], [1,0],   [8,0]],

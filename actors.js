@@ -179,8 +179,11 @@ function Fluff(name, dir) {
     
     // zzzzzap
     this.beamHit = function(color, dir) {
-        this.destroyed = true;
-        this.origin = [12, 15];
+        if (!this.destroyed) {
+            this.destroyed = true;
+            map.destroyedObjects++;
+            this.origin = [12, 15];           
+        }
         return dir;
     }
     this.toString = function() {

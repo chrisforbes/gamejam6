@@ -61,20 +61,29 @@
         <hr></hr>
         <table>
           <tr>
-            <td class="label">Time Bonus</td>
+            <td class="label">Time Remaining</td>
             <td>
               <span id="score_time_raw">01:37</span> <span class="mult">x 250</span>
             </td><td>
               <span id="score_time_points">24250</span>
             </td>
           </tr>
-          <tr>
+          <tr id="score_parts_row" style="display:none">
             <td class="label">Remaining Parts</td>
             <td>
-              <span id="score_parts_raw">2</span> <span class="mult">x 10000</span>
+              <span id="score_parts_raw">2</span> <span class="mult">x 1000</span>
             </td>
             <td>
-              <span id="score_parts_points">20000</span>
+              <span id="score_parts_points">2000</span>
+            </td>
+          </tr>
+          <tr id="score_destruction_row" style="display:none">
+            <td class="label">Destruction Bonus</td>
+            <td>
+              <span id="score_destruction_raw">2</span> <span class="mult">x 200</span>
+            </td>
+            <td>
+              <span id="score_destruction_points">400</span>
             </td>
           </tr>
           <tr>
@@ -86,7 +95,7 @@
           </tr>
         </table>
 		<hr></hr>
-		<input type="button" class="button" value="Continue" onclick="$('#success').hide(); loadNextLevel();" />
+		<input type="button" class="button" value="Continue" onclick="loadNextLevel(); $('#success').hide();" />
       </div>
     </div>
     <div id="fail" class="centered panel">
@@ -95,7 +104,7 @@
         	<hr></hr>
 			<span>You failed to complete the level in time</span>
         	<hr></hr>
-			<input type="button" class="button" value="Retry" onclick="$('#fail').hide(); restartLevel();" />
+			<input type="button" class="button" value="Retry" onclick="restartLevel(); $('#fail').hide();" />
 		</div>
 	</div>
 	<div id="gameWrapper" class="centered"  oncontextmenu="return false;">
