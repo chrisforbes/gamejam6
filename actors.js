@@ -4,11 +4,12 @@
 function Target(color, dir) {
     this.color = color;
     this.dirString = dir;
-    var c = 7;
+    var c = 8;
     switch(color) {
-        case "red": c = 7; break;
-        case "green": c = 5; break;
-        case "blue": c = 6; break;
+        case "red": c = 8; break;
+        case "green": c = 6; break;
+        case "blue": c = 7; break;
+        case "white": c = 5; break;
     }
     switch (dir) {
         case "n":
@@ -261,6 +262,7 @@ var actorTypes = {
 	"target-red" : new Target("red", "n"),
 	"target-green" : new Target("green", "n"),
 	"target-blue" : new Target("blue", "n"),
+	"target-white" : new Target("white", "n"),
 	"laser-red" : new Laser("red", "n"),
 	"laser-green" : new Laser("green", "n"),
 	"laser-blue" : new Laser("blue", "n"),
