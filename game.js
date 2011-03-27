@@ -203,6 +203,6 @@ $(function() {
 	$('#gameSurface').mouseout(function() { nearestTileX = null; });
 	$('#gameSurface').mousedown(gameSurfaceClick);
 	$(document).keydown(gameSurfaceKeyDown);
-	setLevel(0);
+	setLevel(1);
 	setInterval( "main()", 50 );
 });
