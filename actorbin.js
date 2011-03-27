@@ -2,19 +2,25 @@ $(function() {
 	imageSheet.onload = drawActorbin();
 	$('#actorbin').mousedown(actorbinClicked);
 });
-//function Brush(type, value, origin, onPaint) {
-
 
 function ActorBrush(actor) {
     this.type = "actor";
     this.value = actor;
     this.origin = actor.origin;
+
     this.onPaint = function(x,y) {
         if (!map.getCell([x,y]).allowsActor()) return;
 
         var b = map.getCell([x,y]).actor;
+        if (b) {
+            // Give the part back
+            map.parts[b.name]++;
+        }
+        map.parts[this.value.name]--;
+
         map.getCell([x,y]).actor = this.value;
         brush = b ? new ActorBrush(b) : new SelectionBrush();
+        drawActorbin();
     };
 
     this.rotate = function() {
@@ -51,11 +57,15 @@ function actorbinClicked(e) {
 	var x = Math.floor((e.pageX - ui.offset().left) / tileSize);
 	var y = Math.floor((e.pageY - ui.offset().top) / tileSize);
 	var i = y*maxPanelsInRow + x;
-	
+
+    // derp
 	var actors = map.getActorsAndCounts();
+	var types = [];
+	for (var foo in actors) types.push(foo);
+	
 	// Make the tile the active brush
-	if (x < maxPanelsInRow && i < actors.length) {
-	    brush = new ActorBrush(actorTypes[actors[i][0]]);
+	if (x < maxPanelsInRow && i < types.length && actors[types[i]] != 0) {
+	    brush = new ActorBrush(actorTypes[types[i]]);
 	}
 	drawActorbin();
 	drawTilebin();
@@ -87,8 +97,8 @@ function drawActorbin() {
 	var y = 0;
 	var actors = map.getActorsAndCounts();
 	for (var p in actors) {
-	    var a = actorTypes[actors[p][0]];
-	    var count = actors[p][1];
+	    var a = actorTypes[p];
+	    var count = actors[p];
 	    
 	    if (!count) ctx.globalAlpha = 0.3;
 	    

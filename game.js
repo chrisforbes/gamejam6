@@ -82,11 +82,13 @@ $(function() {
 function SelectionBrush() {
     this.type = "select";
     this.origin = [4,14];
+    
     this.onPaint = function(x,y) {
-
         var a = map.getCell([x,y]).actor;
         if (a && a.editable()) {
+            map.parts[a.name]++;
             brush = new ActorBrush(a);
+            drawActorbin();
             map.getCell([x,y]).actor = undefined;
         }
     };

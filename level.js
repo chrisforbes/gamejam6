@@ -101,10 +101,10 @@ function Map(width, height, data, parts) {
     this.width = width;
     this.height = height;
     
-    this.parts = [
-        ['mirror', 3],
-        ['laser-red', 0],
-    ];
+    this.parts = {
+        'mirror' : 3,
+        'laser-red' : 3,
+    };
     
     if (data)
         this.cells = eval(data);
@@ -118,9 +118,9 @@ function Map(width, height, data, parts) {
     // TODO: Calculate editor values once
     this.getActorsAndCounts = function() {
         if (editor) {
-            var ret = [];
+            var ret = {};
             for (var i in actorTypes)
-                ret[ret.length] = [i, -1];
+                ret[i] = -1;
             return ret;
         }
         return this.parts;
