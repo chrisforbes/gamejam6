@@ -160,7 +160,8 @@ function main() {
     if (!$('#success').is(':hidden')
      || !$('#fail').is(':hidden')
      || !$('#instructions').is(':hidden')
-     || !$('#credits').is(':hidden') ) return;
+     || !$('#credits').is(':hidden') 
+     || !$('#finished').is(':hidden')) return;
     
     var canvas = $('#gameSurface')[0];
     var ctx = canvas.getContext('2d');
@@ -204,6 +205,10 @@ var level = 0;
 function loadNextLevel() {
     if (++level < levels.length)
         setLevel(level);
+    else {
+        $('#score_final_points').html(totalPoints);
+        $('#finished').show();
+    }
 }
 
 function restartLevel() {

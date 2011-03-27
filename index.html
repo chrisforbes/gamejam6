@@ -107,6 +107,23 @@
 			<input type="button" class="button" value="Retry" onclick="restartLevel(); $('#fail').hide();" />
 		</div>
 	</div>
+	<div id="finished" class="centered panel">
+    	<div id="dialog">
+        	<h1>You Win!</h1>
+        	<hr></hr>
+	        <table>
+          	  <tr>
+	            <td class="totalscore label">Final Score</td>
+	            <td></td>
+	            <td class="totalscore">
+	              <span id="score_final_points">44250</span>
+	            </td>
+	          </tr>
+			</table>
+        	<hr></hr>
+			<input type="button" class="button" value="Play Again" onclick="setLevel(0); $('#finished').hide();" />
+		</div>
+	</div>
 	<div id="gameWrapper" class="centered"  oncontextmenu="return false;">
 		<canvas id="gameSurface" width="512px" height="512px"> 
 			Your browser does not support the canvas element.
