@@ -21,7 +21,7 @@ function tilebinClicked(e) {
 	
 	// Make the tile the active brush
 	if (x < maxPanelsInRow && i < tilePanels.length)
-	    brush = new Brush("tile", tilePanels[i]);
+	    brush = new Brush("tile", tilePanels[i], tilePanels[i].origin);
 	
 	drawActorbin();
 	drawTilebin();

@@ -80,26 +80,22 @@ $(function() {
 
 var brush;
 
-function Brush(type, value) {
+function Brush(type, value, origin, onclick) {
     this.type = type;
     this.value = value;
-    
+    this.origin = origin;
+    this.onclick = onclick;
     this.draw = function(ctx) {
         if (nearestTileX == null) return;
-        
-        ctx.fillStyle = "yellow";
-        ctx.fillRect(nearestTileX, nearestTileY, tileSize, tileSize);
-        
-        /*
+
         ctx.shadowColor = "rgba(0,0,0,0.5)";
         ctx.shadowOffsetX = -3;
         ctx.shadowOffsetY = 3;
         ctx.shadowBlur = 2;
-        ctx.drawImage(imageSheet, selectedPanel.origin[0] * tileSize,
-            selectedPanel.origin[1] * tileSize, tileSize, tileSize,
+        ctx.drawImage(imageSheet, origin[0] * tileSize,
+            origin[1] * tileSize, tileSize, tileSize,
             nearestTileX + 3, nearestTileY - 3, tileSize, tileSize);
         ctx.shadowColor = "rgba(0,0,0,0)";
-        */
     }
 }
 

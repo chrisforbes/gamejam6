@@ -16,7 +16,7 @@ function actorbinClicked(e) {
 	var actors = map.getActorsAndCounts();
 	// Make the tile the active brush
 	if (x < maxPanelsInRow && i < actors.length) {
-	    brush = new Brush("actor", actors[i][0]);
+	    brush = new Brush("actor", actors[i][0], actorTypes[actors[i][0]].origin);
 	}
 	drawActorbin();
 	drawTilebin();
