@@ -83,8 +83,9 @@ function SelectionBrush() {
     this.type = "select";
     this.origin = [4,14];
     this.onPaint = function(x,y) {
+
         var a = map.getCell([x,y]).actor;
-        if (a) {
+        if (a && a.editable()) {
             brush = new ActorBrush(a);
             map.getCell([x,y]).actor = undefined;
         }

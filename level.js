@@ -91,6 +91,10 @@ function Cell(tile, actor) {
     this.toString = function() {
         return "new Cell("+this.tile+", "+this.actor+")";
     }
+    
+    this.allowsActor = function() {
+        return this.tile.allowPlace && (!this.actor || this.actor.editable());
+    }
 }
 
 function Map(width, height, data, parts) {

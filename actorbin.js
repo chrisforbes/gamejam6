@@ -10,6 +10,8 @@ function ActorBrush(actor) {
     this.value = actor;
     this.origin = actor.origin;
     this.onPaint = function(x,y) {
+        if (!map.getCell([x,y]).allowsActor()) return;
+
         var b = map.getCell([x,y]).actor;
         map.getCell([x,y]).actor = this.value;
         brush = b ? new ActorBrush(b) : new SelectionBrush();
@@ -17,8 +19,26 @@ function ActorBrush(actor) {
 
     this.rotate = function() {
     	this.value = this.value.rotate();
-	this.origin = this.value.origin;
+	    this.origin = this.value.origin;
     };
+    
+    this.draw = function(ctx) {
+        if (nearestTileX == null) return;
+        
+        // Actor
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage(imageSheet, this.origin[0] * tileSize,
+            this.origin[1] * tileSize, tileSize, tileSize,
+            nearestTileX, nearestTileY, tileSize, tileSize);
+        ctx.globalAlpha = 1;
+
+        // Selection rect
+        var cy = map.getCell([nearestTileX / tileSize, nearestTileY / tileSize]).allowsActor() ? 14 : 15;
+        ctx.drawImage(imageSheet, (4 + (tick >> 1)%3) * tileSize,
+            cy * tileSize, tileSize, tileSize,
+            nearestTileX, nearestTileY, tileSize, tileSize);
+        
+    }
 }
 ActorBrush.prototype = new Brush();
 
