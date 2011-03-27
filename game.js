@@ -49,12 +49,13 @@ function drawBeam(color, xy, d0, d1, ctx) {
     switch(color) {
         case "green": o = 4*tileSize; break;
         case "blue": o = 2*tileSize; break;
+        case "white": o = 6 * tileSize; break;
     }
     ctx.drawImage(imageSheet, tileSize*origin[0], tileSize*origin[1]+o, tileSize, tileSize, xy[0]*tileSize, xy[1]*tileSize, tileSize, tileSize);
 }
 
 function drawSparkles(cx,cy,color,dir,ctx) {
-	var c = color == "green" ? 2 : color == "blue" ? 1 : 0;
+	var c = color == "green" ? 2 : color == "blue" ? 1 : color == "white" ? 3 : 0;
 	var d = 0;
 	for( var i in sparkleOffsets )
 		if (isEqualDir(sparkleOffsets[i][0],dir)) {
