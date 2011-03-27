@@ -74,7 +74,7 @@ $(function() {
     $('#gameSurface').mousemove(gameSurfaceMove);
 	$('#gameSurface').mouseout(function() { nearestTileX = null; });
 	$('#gameSurface').click(gameSurfaceClick);
-	$('#gameSurface').mousedown(gameSurfaceMouseDown);
+	$(document).keydown(gameSurfaceKeyDown);
 	
 	setInterval( "main()", 50 );
 });
@@ -127,10 +127,6 @@ function Brush(type, value, origin, onPaint) {
 	    
 	    this.onPaint(xIndex, yIndex);
     }
-    
-    this.rotate = function() {
-        
-    }
 }
 
 function gameSurfaceMove(e) {
@@ -147,12 +143,9 @@ function gameSurfaceClick(e) {
         brush.paint();
 }
 
-function gameSurfaceMouseDown(e) {
-	if (selectedPanel != null || nearestTileX == null || e.button != 2) return;
-	var xIndex = nearestTileX / tileSize;
-	var yIndex = nearestTileY / tileSize;
-	var selectedActor = map.getCell([xIndex, yIndex]).actor;
-	map.getCell([xIndex, yIndex]).actor = selectedActor.rotate();
+function gameSurfaceKeyDown(e) {
+    if (brush && brush.rotate && e.which == 32)
+    	brush.rotate();
 }
 
 function main() {

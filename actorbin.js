@@ -10,8 +10,13 @@ function ActorBrush(actor) {
     this.origin = actor.origin;
     this.onPaint = function(x,y) {
         var b = map.getCell([x,y]).actor;
-        map.getCell([x,y]).actor = actor;
+        map.getCell([x,y]).actor = this.value;
         brush = b ? new ActorBrush(b) : new SelectionBrush();
+    };
+
+    this.rotate = function() {
+    	this.value = this.value.rotate();
+	this.origin = this.value.origin;
     };
 }
 ActorBrush.prototype = new Brush();
