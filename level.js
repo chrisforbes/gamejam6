@@ -114,7 +114,7 @@ function Map(width, height, data, parts) {
     // TODO: Calculate editor values once
     this.getActorsAndCounts = function() {
         if (editor) {
-            var ret = Array(0);
+            var ret = [];
             for (var i in actorTypes)
                 ret[ret.length] = [i, -1];
             return ret;

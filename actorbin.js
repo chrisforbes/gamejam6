@@ -44,7 +44,7 @@ function actorbinClicked(e) {
 function drawDigit(ctx,x,y,n)
 {
 	var m = 0+n;
-	if (n < 0) m = 10;
+	if (n < 0 || n == undefined) m = 10;
 	if (n == 'x') m = 11;
 		
 	col = m & 3;
