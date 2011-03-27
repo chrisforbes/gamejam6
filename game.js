@@ -1,5 +1,6 @@
 // Tile definitions
 var imageSheet = new Image();
+var tileSize = 32;
 imageSheet.src = 'sprites.png';
 var selectedPanel = null;
 var nearestTileX = null;
@@ -46,10 +47,10 @@ function drawBeam(color, xy, d0, d1, ctx) {
         }
     var o = 0;
     switch(color) {
-        case "green": o = 128; break;
-        case "blue": o = 64; break;
+        case "green": o = 4*tileSize; break;
+        case "blue": o = 2*tileSize; break;
     }
-    ctx.drawImage(imageSheet, 32*origin[0], 32*origin[1]+o, 32, 32, xy[0]*32, xy[1]*32, 32, 32);
+    ctx.drawImage(imageSheet, tileSize*origin[0], tileSize*origin[1]+o, tileSize, tileSize, xy[0]*tileSize, xy[1]*tileSize, tileSize, tileSize);
 }
 
 function drawSparkles(cx,cy,color,dir,ctx) {
@@ -63,7 +64,7 @@ function drawSparkles(cx,cy,color,dir,ctx) {
 	
 	var origin = [ 13 + tick%3, c + 3*d ];	
 	
-	ctx.drawImage( imageSheet, 32*origin[0], 32*origin[1], 32, 32, cx*32, cy*32, 32, 32 );
+	ctx.drawImage( imageSheet, tileSize*origin[0], tileSize*origin[1], tileSize, tileSize, cx*tileSize, cy*tileSize, tileSize, tileSize );
 }
 
 var tick = 0;
@@ -83,13 +84,13 @@ function Brush(type, value) {
 function main() {
     var canvas = $('#gameSurface')[0];
     var ctx = canvas.getContext('2d');
-    if (canvas.width != map.width * 32) {
-        canvas.width = map.width * 32;
-	$('#gameWrapper').width(map.width * 32);
+    if (canvas.width != map.width * tileSize) {
+        canvas.width = map.width * tileSize;
+	$('#gameWrapper').width(map.width * tileSize);
     }
-    if (canvas.height != map.height * 32) {
-    	canvas.height = map.height * 32;
-	$('#gameWrapper').height(map.height * 32);
+    if (canvas.height != map.height * tileSize) {
+    	canvas.height = map.height * tileSize;
+	$('#gameWrapper').height(map.height * tileSize);
     }
     ++tick;
     ctx.clearRect(0,0, canvas.width, canvas.height);

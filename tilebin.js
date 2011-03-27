@@ -1,8 +1,4 @@
 var tilePanels = new Array();
-var tileSize = 32;
-var isTileSelected = false;
-var editor;
-
 
 $(function() { 
 	for (var tile in tiles) {
