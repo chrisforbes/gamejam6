@@ -185,19 +185,21 @@ function main() {
         brush.draw(ctx);
 
     // Evaluate win state
-    if ($('#success').is(':hidden')) {
-        var win = true;
-        var containsWinnableActors = false;
-        for (i in map.cells) {
-            if (map.cells[i].actor && map.cells[i].actor.isWinnable) {
-                containsWinnableActors = true;
-                if (!map.cells[i].actor.isWin) 
-                    win = false;
-	    }
-        }
+    if (!editor) {
+		if ($('#success').is(':hidden')) {
+			var win = true;
+			var containsWinnableActors = false;
+			for (i in map.cells) {
+				if (map.cells[i].actor && map.cells[i].actor.isWinnable) {
+					containsWinnableActors = true;
+					if (!map.cells[i].actor.isWin) 
+						win = false;
+			}
+			}
 
-        if (win && containsWinnableActors) {
-            $('#success').show();
-        }
-    }
+			if (win && containsWinnableActors) {
+				$('#success').show();
+			}
+		}
+	}
 }
