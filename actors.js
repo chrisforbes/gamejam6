@@ -34,8 +34,8 @@ function Target(name, color, dir) {
     
     this.beamHit = function(color, dir) {
         if (color == this.color && isEqualDir(dir, this.direction)) {
-		this.isWin = true;
-	}
+    		this.isWin = true;
+    	}
             
         return undefined;
     }
