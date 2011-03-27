@@ -41,6 +41,21 @@ function actorbinClicked(e) {
 	drawTilebin();
 }
 
+function drawDigit(ctx,x,y,n)
+{
+	var m = 0+n;
+	if (n < 0) m = 10;
+	if (n == 'x') m = 11;
+		
+	col = m & 3;
+	row = m >> 2;
+		
+	ctx.drawImage(imageSheet, 4 * 32 + col*16, 12 * 32 + row*16, 16, 16, 
+			x, y, 16, 16 );
+		ctx.drawImage(imageSheet, 4 * 32 + col*16, 12 * 32 + row*16, 16, 16, 
+			x, y, 16, 16 );
+}
+
 function drawActorbin() {
 	var ui = $('#actorbin');
 	var ctx = ui[0].getContext('2d');
@@ -66,11 +81,16 @@ function drawActorbin() {
 			a.origin[1] * tileSize, tileSize, 
 			tileSize, x * tileSize, y * tileSize, tileSize, tileSize);
 			
-		ctx.drawImage(imageSheet, 4 * 32 + 3*16, 12 * 32 + 2*16, 16, 16, 
-			x * tileSize+ 16, y * tileSize + 21, 16, 16 );
-		ctx.drawImage(imageSheet, 4 * 32 + 3*16, 12 * 32 + 0*16, 16, 16, 
-			x * tileSize+ 24, y * tileSize + 21, 16, 16 );
-
+		var count = 42;
+		var u = x * tileSize + 24;
+		var first = true;
+		while( first || count > 0 ) {
+			drawDigit( ctx, u, y * tileSize + 21, count % 10 );
+			u -= 8;
+			count = Math.floor( count / 10 );
+			first = false;
+		}
+		drawDigit( ctx, u, y * tileSize + 21, 'x' );
 		
 		x++;
 		if (x >= maxPanelsInRow) {
