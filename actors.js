@@ -166,6 +166,7 @@ function Filter(color,dir) {
     this.dirString = dir;
     var c = 2;
     switch(color) {
+		case "white": c = 3; break;
         case "red": c = 2; break;
         case "green": c = 1; break;
         case "blue": c = 0; break;
@@ -198,10 +199,6 @@ function Filter(color,dir) {
 		case "n":
 	    		return new Filter(this.color, "e");
 		case "e":
-			return new Filter(this.color, "s");
-		case "s":
-			return new Filter(this.color, "w");
-		case "w":
 			return new Filter(this.color, "n");
 	}
     }
@@ -273,5 +270,6 @@ var actorTypes = {
 	"mirror-double" : new Mirror("double-nw"),
 	"filter-red" : new Filter("red", "n"),
 	"filter-green" : new Filter("green", "n"),
-	"filter-blue" : new Filter("blue", "n")
+	"filter-blue" : new Filter("blue", "n"),
+	"filter-white" : new Filter("white", "n"),
 };
