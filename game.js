@@ -73,7 +73,7 @@ var tick = 0;
 $(function() {
     $('#gameSurface').mousemove(gameSurfaceMove);
 	$('#gameSurface').mouseout(function() { nearestTileX = null; });
-	$('#gameSurface').click(gameSurfaceClick);
+	$('#gameSurface').mousedown(gameSurfaceClick);
 	$(document).keydown(gameSurfaceKeyDown);
 	
 	setInterval( "main()", 50 );
@@ -139,8 +139,8 @@ function gameSurfaceMove(e) {
 }
 
 function gameSurfaceClick(e) {
-    if (brush)
-        brush.paint();
+	if (brush)
+		brush.paint();
 }
 
 function gameSurfaceKeyDown(e) {

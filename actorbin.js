@@ -4,6 +4,7 @@ $(function() {
 });
 //function Brush(type, value, origin, onPaint) {
 
+
 function ActorBrush(actor) {
     this.type = "actor";
     this.value = actor;
@@ -52,17 +53,25 @@ function drawActorbin() {
 	var actors = map.getActorsAndCounts();
 	for (var p in actors) {
 	    var a = actorTypes[actors[p][0]];
+	    
+	    // Draw selection rect
+		if (brush && brush.type == "actor" && brush.value == a) {
+		    ctx.lineWidth = 3;
+	        ctx.strokeStyle = "limegreen";
+        	ctx.strokeRect(x * tileSize+1, y * tileSize+1,
+        		tileSize-2, tileSize-2);
+		}
+	    
 		ctx.drawImage(imageSheet, a.origin[0] * tileSize, 
 			a.origin[1] * tileSize, tileSize, 
 			tileSize, x * tileSize, y * tileSize, tileSize, tileSize);
+			
+		ctx.drawImage(imageSheet, 4 * 32 + 3*16, 12 * 32 + 2*16, 16, 16, 
+			x * tileSize+ 16, y * tileSize + 21, 16, 16 );
+		ctx.drawImage(imageSheet, 4 * 32 + 3*16, 12 * 32 + 0*16, 16, 16, 
+			x * tileSize+ 24, y * tileSize + 21, 16, 16 );
 
-		// Draw selection rect
-		if (brush && brush.type == "actor" && brush.value == actorTypes[actors[p][0]]) {
-		    ctx.lineWidth = 3;
-	        ctx.strokeStyle = "limegreen";
-        	ctx.strokeRect(x * tileSize + 1, y * tileSize + 1,
-        		tileSize - 2, tileSize - 2);
-		}
+		
 		x++;
 		if (x >= maxPanelsInRow) {
 			x = 0;
