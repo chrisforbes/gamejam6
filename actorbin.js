@@ -1,5 +1,5 @@
 $(function() { 
-	imageSheet.onload = drawActorbin();
+	imageSheet.onload += drawActorbin();
 	$('#actorbin').mousedown(actorbinClicked);
 });
 

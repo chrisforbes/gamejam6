@@ -3,9 +3,9 @@
 	<head>
 		<title>Huge Frickin' Lasers</title>
 		<script src="jquery-1.5.1.js"></script>
-    <script type="text/javascript">
-      var editor = false;
-    </script>
+		<script type="text/javascript">
+		var editor = false;
+		</script>
 		<script src="actors.js"></script>
 		<script src="level.js"></script>
 		<script src="game.js"></script>
@@ -16,16 +16,46 @@
 	<body>
     <h1>Huge Frickin' Lasers</h1>
 	<div class="centered" style="margin-bottom:20px">
-		<input type="button" class="button" style="width:120px" value="Instructions" />
+		<input type="button" class="button" value="Instructions" onclick="$('#instructions').show();"/>
 		<span class="level" style="margin:20px">Level: 1</span>
-		<input type="button" class="button" style="width:120px" value="Credits" />
+		<input type="button" class="button" value="Credits" onclick="$('#credits').show();" />
 	</div>
-    <div id="success" class="centered">
+	<div id="credits" class="centered panel">
+		<div id="dialog">
+			<h1>Credits</h1>
+			<hr></hr>
+			<span>Built for the Reddit Game Jam 06 by:</span><br />
+			<span style="color: yellow">Chris Forbes<br />Paul Chote<br />Matthew Bowra-dean</span>
+			<hr></hr>
+			<input type="button" class="button" value="Continue" onclick="$('#credits').hide();" />
+		</div>
+	</div>
+	<div id="instructions" class="centered panel">
+		<div id="dialog">
+			<h1>Instructions</h1>
+			<hr></hr>
+			<span>Use mirrors to redirect huge frickin' lasers to the correct target before the time runs out.</span>
+			<hr></hr>
+			<table>
+          		<tr>
+					<td class="label">Select/place item</td>
+					<td>Left Mouse</td>
+				</tr>
+				<tr>
+					<td class="label">Rotate selected item</td>
+					<td>R</td>
+				</tr>
+			</table>
+
+			<hr></hr>
+			<input type="button" class="button" value="Continue" onclick="$('#instructions').hide();" />
+		</div>
+	</div>
+    <div id="success" class="centered panel">
       <div id="dialog">
         <h1>Level Complete</h1>
         <hr></hr>
         <table>
-          
           <tr>
             <td class="label">Time Bonus</td>
             <td>
@@ -45,7 +75,7 @@
           </tr>
         </table>
 		<hr></hr>
-        <div>Click anywhere to continue...</div>
+		<input type="button" class="button" value="Continue" onclick="$('#success').hide();" />
       </div>
     </div>
 		<div id="gameWrapper" class="centered"  oncontextmenu="return false;">
