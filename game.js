@@ -73,7 +73,7 @@ function SelectionBrush() {
     this.type = "select";
     this.origin = [4,14];
     
-    this.onPaint = function(x,y) {
+    this.onPaint = function(x, y, e) {
         var a = map.getCell([x,y]).actor;
         if (a && a.editable()) {
             map.parts[a.name]++;
@@ -115,12 +115,12 @@ function Brush(type, value, origin, onPaint) {
         ctx.shadowColor = "rgba(0,0,0,0)";
     }
     
-    this.paint = function() {
+    this.paint = function(e) {
         if (nearestTileX == null) return;
 	    var xIndex = nearestTileX / tileSize;
 	    var yIndex = nearestTileY / tileSize;
 	    
-	    this.onPaint(xIndex, yIndex);
+	    this.onPaint(xIndex, yIndex, e);
     }
 }
 
@@ -135,7 +135,7 @@ function gameSurfaceMove(e) {
 
 function gameSurfaceClick(e) {
 	if (brush)
-		brush.paint();
+		brush.paint(e);
 }
 
 function gameSurfaceKeyDown(e) {

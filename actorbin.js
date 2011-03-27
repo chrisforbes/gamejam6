@@ -4,18 +4,24 @@ function ActorBrush(actor) {
     this.value = actor;
     this.origin = actor.origin;
 
-    this.onPaint = function(x,y) {
-        if (!map.getCell([x,y]).allowsActor()) return;
+    this.onPaint = function(x, y, e) {
+        switch (e.which) {
+            case 1:
+                if (!map.getCell([x,y]).allowsActor()) return;
+                var b = map.getCell([x,y]).actor;
+                if (b) {
+                    // Give the part back
+                    map.parts[b.name]++;
+                }
+                map.parts[this.value.name]--;
 
-        var b = map.getCell([x,y]).actor;
-        if (b) {
-            // Give the part back
-            map.parts[b.name]++;
+                map.getCell([x,y]).actor = this.value;
+                brush = b ? new ActorBrush(b) : new SelectionBrush();
+            break;
+            case 3:
+                brush = new SelectionBrush();
+            break;
         }
-        map.parts[this.value.name]--;
-
-        map.getCell([x,y]).actor = this.value;
-        brush = b ? new ActorBrush(b) : new SelectionBrush();
         drawActorbin();
     };
 
