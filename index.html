@@ -93,6 +93,8 @@
     	<div id="dialog">
         	<h1>Level Failed</h1>
         	<hr></hr>
+			<span>You failed to complete the level in time</span>
+        	<hr></hr>
 			<input type="button" class="button" value="Retry" onclick="$('#fail').hide(); restartLevel();" />
 		</div>
 	</div>
@@ -100,7 +102,7 @@
 		<canvas id="gameSurface" width="512px" height="512px"> 
 			Your browser does not support the canvas element.
 		</canvas>
-		<canvas id="actorbin" width="512px" height="100px"></canvas>
+		<canvas id="actorbin" width="512px" height="64px"></canvas>
 	</div>
 	</body>
 </html>

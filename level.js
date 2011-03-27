@@ -103,7 +103,6 @@ function Cell(tile, actor) {
 function Map(width, height, data, parts, time) {
     this.width = width;
     this.height = height;
-    this.stopped = false;
     this.remainingTicks = ticksPerSecond*time;
     this.totalTicks = ticksPerSecond*time;
     
@@ -144,7 +143,7 @@ function Map(width, height, data, parts, time) {
     }
     
     this.tick = function() {
-        if (editor || this.stopped) return;
+        if (editor) return;
         
         // Draw timer bar - GIANT HACK
         var canvas = $('#gameSurface')[0];
@@ -171,7 +170,6 @@ function Map(width, height, data, parts, time) {
 			x+6, y+8+230, 64, 16 );	
 		
         if ($('#fail').is(':hidden') && --this.remainingTicks <= 0) {
-            this.stopped = true;
             $('#fail').show();
         }
 
@@ -188,7 +186,6 @@ function Map(width, height, data, parts, time) {
         	}
 
         	if (win && containsWinnableActors) {
-        	    this.stopped = true;
         		$('#success').show();
         	}
         }

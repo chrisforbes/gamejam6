@@ -36,7 +36,8 @@ h1, h2, h3 {
 
 #dialog {
 	width:320px;
-	margin: 200px auto;
+	margin: 150px auto;
+	margin-bottom:0;
 	background-color: #444;
 	border:1px solid #000;
 	padding:15px;

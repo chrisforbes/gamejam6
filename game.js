@@ -156,6 +156,11 @@ function gameSurfaceKeyDown(e) {
 }
 
 function main() {
+    if (!$('#success').is(':hidden')
+     || !$('#fail').is(':hidden')
+     || !$('#instructions').is(':hidden')
+     || !$('#credits').is(':hidden') ) return;
+    
     var canvas = $('#gameSurface')[0];
     var ctx = canvas.getContext('2d');
     if (canvas.width != map.width * tileSize + sidebarWidth) {
