@@ -179,7 +179,7 @@ function Fluff(name, dir) {
     
     // zzzzzap
     this.beamHit = function(color, dir) {
-        if (!this.destroyed) {
+        if (!this.destroyed && !editor) {
             this.destroyed = true;
             map.destroyedObjects++;
             this.origin = [12, 15];           
