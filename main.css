@@ -61,3 +61,5 @@ div h1 { line-height: .5em }
 #nextbutton:hover { background-color: #aaa }
 
 hr { color: #eee }
+
+span.mult { font-size: 0.7em }
