@@ -69,16 +69,6 @@ function drawSparkles(cx,cy,color,dir,ctx) {
 }
 
 var tick = 0;
-
-$(function() {
-    $('#gameSurface').mousemove(gameSurfaceMove);
-	$('#gameSurface').mouseout(function() { nearestTileX = null; });
-	$('#gameSurface').mousedown(gameSurfaceClick);
-	$(document).keydown(gameSurfaceKeyDown);
-	
-	setInterval( "main()", 50 );
-});
-
 function SelectionBrush() {
     this.type = "select";
     this.origin = [4,14];
@@ -207,3 +197,12 @@ function main() {
 		}
 	}
 }
+
+$(function() {
+    $('#gameSurface').mousemove(gameSurfaceMove);
+	$('#gameSurface').mouseout(function() { nearestTileX = null; });
+	$('#gameSurface').mousedown(gameSurfaceClick);
+	$(document).keydown(gameSurfaceKeyDown);
+	setLevel(0);
+	setInterval( "main()", 50 );
+});

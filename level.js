@@ -101,11 +101,15 @@ function Map(width, height, data, parts) {
     this.width = width;
     this.height = height;
     
-    this.parts = {
-        'mirror' : 3,
-        'laser-red' : 3,
-        'target-red' : 1
-    };
+    if (parts)
+        this.parts = parts;
+    else {
+        this.parts = {
+            'mirror' : 13,
+            'laser-red' : 1,
+			'target-red' : 1
+        };
+    }
     
     if (data)
         this.cells = eval(data);
@@ -134,5 +138,14 @@ function Map(width, height, data, parts) {
     }
 }
 
-//var map = new Map(6,4,"[new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('floor', new Target('green', 's')),new Cell('floor', new Filter('green', 'e')),new Cell('floor', new Mirror('sw')),new Cell('floor', new Mirror('sw')),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('floor', new LaserRear('e')),new Cell('floor', new Laser('green', 'e')),new Cell('floor', new Mirror('double-nw')),new Cell('floor', new Mirror('double-ne')),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined),new Cell('wall', undefined)]");
-var map = new Map(10,10);
+function setLevel(l) {
+    if (l < 0 || l >= levels.length) {
+        alert("Invalid level selected");
+        return;
+    }
+    map = levels[l];
+}
+
+var levels = [
+    new Map(15,10,"[new Cell('wall03', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall05', undefined),new Cell('wall06', undefined),new Cell('caution1', undefined),new Cell('caution1', undefined),new Cell('caution2', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('wall06', undefined),new Cell('wall06', undefined),new Cell('floor', new LaserRear('laser-back','e')),new Cell('floor', new Laser('laser-red','red', 'e')),new Cell('caution4', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('wall06', undefined),new Cell('wall06', undefined),new Cell('caution1', undefined),new Cell('caution1', undefined),new Cell('caution7', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('wall06', undefined),new Cell('wall06', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('wall06', undefined),new Cell('wall06', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('wall06', undefined),new Cell('wall06', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('caution0', undefined),new Cell('caution1', undefined),new Cell('caution2', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('wall06', undefined),new Cell('wall06', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('caution3', undefined),new Cell('floor', new Target('target-red','red', 'n')),new Cell('caution4', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('wall06', undefined),new Cell('wall06', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('tile', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('caution3', undefined),new Cell('wall07', undefined),new Cell('caution4', undefined),new Cell('floor', undefined),new Cell('floor', undefined),new Cell('wall06', undefined),new Cell('wall10', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall08', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall09', undefined),new Cell('wall12', undefined)]", {'mirror' : 1})
+];
