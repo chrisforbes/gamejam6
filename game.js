@@ -70,6 +70,11 @@ function drawSparkles(cx,cy,color,dir,ctx) {
 var tick = 0;
 
 $(function() {
+    $('#gameSurface').mousemove(gameSurfaceMove);
+	$('#gameSurface').mouseout(function() { nearestTileX = null; });
+	$('#gameSurface').click(gameSurfaceClick);
+	$('#gameSurface').mousedown(gameSurfaceMouseDown);
+	
 	setInterval( "main()", 50 );
 });
 
@@ -78,8 +83,57 @@ var brush;
 function Brush(type, value) {
     this.type = type;
     this.value = value;
+    
+    this.draw = function(ctx) {
+        if (nearestTileX == null) return;
+        
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(nearestTileX, nearestTileY, tileSize, tileSize);
+        
+        /*
+        ctx.shadowColor = "rgba(0,0,0,0.5)";
+        ctx.shadowOffsetX = -3;
+        ctx.shadowOffsetY = 3;
+        ctx.shadowBlur = 2;
+        ctx.drawImage(imageSheet, selectedPanel.origin[0] * tileSize,
+            selectedPanel.origin[1] * tileSize, tileSize, tileSize,
+            nearestTileX + 3, nearestTileY - 3, tileSize, tileSize);
+        ctx.shadowColor = "rgba(0,0,0,0)";
+        */
+    }
 }
 
+function gameSurfaceMove(e) {
+	var game = $('#gameSurface');
+	var x = e.pageX - game.offset().left;
+	var y = e.pageY - game.offset().top;
+
+	nearestTileX = Math.floor(x / tileSize) * tileSize;
+	nearestTileY = Math.floor(y / tileSize) * tileSize;
+}
+
+function gameSurfaceClick(e) {
+	if (selectedPanel == null || nearestTileX == null) return;
+	var xIndex = nearestTileX / tileSize;
+	var yIndex = nearestTileY / tileSize;
+	if (editor) {
+	    if (isTileSelected)
+    		map.getCell([xIndex,yIndex]).tile = selectedPanel;
+    	else
+    	 	map.getCell([xIndex,yIndex]).actor = selectedPanel;
+	} else {
+	    alert(selectedPanel)
+	}
+
+}
+
+function gameSurfaceMouseDown(e) {
+	if (selectedPanel != null || nearestTileX == null || e.button != 2) return;
+	var xIndex = nearestTileX / tileSize;
+	var yIndex = nearestTileY / tileSize;
+	var selectedActor = map.getCell([xIndex, yIndex]).actor;
+	map.getCell([xIndex, yIndex]).actor = selectedActor.rotate();
+}
 
 function main() {
     var canvas = $('#gameSurface')[0];
@@ -111,15 +165,8 @@ function main() {
         for (var x = 0; x < map.width; x++) {
             map.cells[y*map.width + x].drawPostBeam(x,y,ctx);
         }
-            
     
-    if (selectedPanel == null || nearestTileX == null) return;
-    ctx.shadowColor = "rgba(0,0,0,0.5)";
-    ctx.shadowOffsetX = -3;
-    ctx.shadowOffsetY = 3;
-    ctx.shadowBlur = 2;
-    ctx.drawImage(imageSheet, selectedPanel.origin[0] * tileSize,
-        selectedPanel.origin[1] * tileSize, tileSize, tileSize,
-        nearestTileX + 3, nearestTileY - 3, tileSize, tileSize);
-    ctx.shadowColor = "rgba(0,0,0,0)";
+    // Brush   
+    if (brush)
+        brush.draw(ctx);
 }

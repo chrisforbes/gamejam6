@@ -1,7 +1,7 @@
 
 
 // Actors
-function Target(color, dir) {    
+function Target(color, dir) {
     this.color = color;
     this.dirString = dir;
     var c = 7;

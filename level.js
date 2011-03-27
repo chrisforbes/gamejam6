@@ -80,7 +80,8 @@ function Map(width, height, data, parts) {
     this.height = height;
     
     this.parts = [
-        ['mirror', 3]
+        ['mirror', 3],
+        ['laser-red', 3],
     ];
     
     if (data)
@@ -91,7 +92,18 @@ function Map(width, height, data, parts) {
             for (var x = 0; x < width; x++)
                 this.cells[width*y+x] = new Cell((x == 0 || y == 0 || x == width - 1 || y == height - 1) ? "block" : "floor", undefined);
     }
-        
+    
+    // TODO: Calculate editor values once
+    this.getActorsAndCounts = function() {
+        if (editor) {
+            var ret = Array(0);
+            for (var i in actorTypes)
+                ret[ret.length] = [i, -1];
+            return ret;
+        }
+        return this.parts;
+    }
+    
     this.getCell = function(xy) { return this.cells[xy[1]*this.width + xy[0]]; },
 
     this.toString = function() {
